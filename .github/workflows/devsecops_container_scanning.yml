@@ -1,13 +1,8 @@
-name: Security Scan Pipeline (Secret Scanning, SCA, SAST, IaC)
+name: Security Scan Pipeline (Secret Scanning, SCA, SAST, IaC, Container Scanning)
 
 on:
-  push:
-    branches:
-      - main
-      - dev
-  pull_request:
   schedule:
-    - cron: '0 0 * * 1'  # Runs every Monday at midnight UTC
+    - cron: '0 0 * * *'  # Runs every day at midnight UTC
 
 permissions:
   contents: read
@@ -41,7 +36,7 @@ jobs:
           exit-code: '0'
           # Enable next line for ad-hoc analysis
           #trivy-config: trivy.yaml  # I should create this file, in case
-
+      
       # Upload the Trivy JSON report
       - name: Upload vulnerability scan results (JSON)
         uses: actions/upload-artifact@v4
@@ -151,7 +146,7 @@ jobs:
     steps:
       # Checkout the codebase
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4       
 
       # Run Trivy in config mode, create sarif report
       - name: Run Trivy in config mode to do IaC Analysis, fail build on high/criticial vulnerabilities
@@ -162,7 +157,7 @@ jobs:
           hide-progress: true
           format: 'sarif'
           output: 'trivy-iac_sarif-report.sarif'
-          # For now, it is 0, will be promoted to 1
+          # For now it is 0, will be promoted to 1
           exit-code: '0' # Fail if HIGH/CRITICAL vulnerabilities are found
           ignore-unfixed: true
           severity: 'CRITICAL,HIGH'
@@ -174,3 +169,70 @@ jobs:
         if: always()
         with:
           sarif_file: 'trivy-iac_sarif-report.sarif'
+
+  # Container scanning with Trivy
+  container-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read            # Required for actions/checkout
+      security-events: write    # Required for uploading SARIF results
+      actions: read             # For fetching workflow statuses in private repositories
+    steps:
+      # Checkout repository (if Dockerfile is part of your repo)
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Build Docker image
+      - name: Build Docker Image
+        run: |
+          docker build -t kpi-engine .
+
+      # Set a dynamic file name for the report
+      - name: Set Trivy JSON report file name
+        run: echo "TRIVY_CONTAINER_REPORT_NAME=trivy-container-report_$(date +'%Y-%m-%d_%H-%M').json" >> $GITHUB_ENV
+
+      # Scan the Docker image with Trivy
+      - name: Run Trivy for Container Scanning, generate JSON vulnerability report
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'kpi-engine'
+          format: 'json'
+          # For now it is 0, will be promoted to 1
+          exit-code: '0'  # With exit-code:1 it fails if vulnerabilities are found
+          vuln-type: 'os,library' # default values
+          severity: 'CRITICAL,HIGH'
+          output: '${{ env.TRIVY_CONTAINER_REPORT_NAME }}'
+
+      # Upload the Trivy JSON report
+      - name: Upload Container Scanning results (JSON)
+        uses: actions/upload-artifact@v4
+        with:
+          name: trivy-container_json-report
+          path: ${{ env.TRIVY_CONTAINER_REPORT_NAME }}
+          retention-days: 30
+
+      # Scan the Docker image with Trivy, create a SARIF report
+      - name: Run Trivy for Container Scanning, generate SARIF vulnerability report
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'kpi-engine'
+          format: 'sarif'
+          # For now it is 0, will be promoted to 1
+          exit-code: '0'  # With exit-code:1 it fails if vulnerabilities are found
+          # For the SARIF, only critical. Otherwise the GitHub Security tab will be flooded
+          severity: 'CRITICAL'
+          output: 'trivy-container_sarif-report.sarif'
+          # On a subsequent call to the action we know Trivy is already installed so can skip this
+          skip-setup-trivy: true
+
+      # Upload SARIF results for Trivy Container Scan to GitHub Security tab
+      - name: Upload Trivy Container Scan Results (sarif)
+        uses: github/codeql-action/upload-sarif@v3
+        # Upload SARIF results to GitHub Code scanning even upon a non zero exit code from Trivy Scan
+        if: always()
+        with:
+          sarif_file: 'trivy-container_sarif-report.sarif'
+
+
+
+  # OWASP ZAP to do Dynamic Application Security Test (DAST)?

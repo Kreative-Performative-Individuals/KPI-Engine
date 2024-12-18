@@ -69,7 +69,7 @@
            <div itemprop="articleBody">
              
   <h1>Source code for app.kpi_engine.kpi_engine</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot;KPI Calculation Engine.&quot;&quot;&quot;</span>
+<span></span><span class="sd">&quot;&quot;&quot;(Real Time) KPI Calculation Engine.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">json</span>
 <span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">datetime</span>
@@ -90,7 +90,8 @@
 <div class="viewcode-block" id="KPIEngine">
 <a class="viewcode-back" href="../../../app.kpi_engine.html#app.kpi_engine.kpi_engine.KPIEngine">[docs]</a>
 <span class="k">class</span> <span class="nc">KPIEngine</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class represents the core engine for real-time KPI computation. It integrates Kafka for message consumption,</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    This class represents the core engine for real-time KPI computation. It integrates Kafka for message consumption,</span>
 <span class="sd">    numpy and numexpr for numerical computation, and WebSocket for real-time</span>
 <span class="sd">    communication with a GUI.</span>
 
@@ -104,10 +105,12 @@
 <span class="sd">        operations, and aggregation rules for KPI computation.</span>
 <span class="sd">    :type evaluable_formula_info: dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">instance</span> <span class="o">=</span> <span class="kc">None</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic</span><span class="p">,</span> <span class="n">port</span><span class="p">,</span> <span class="n">servers</span><span class="p">,</span> <span class="n">evaluable_formula_info</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Constructor method for initializing the KPIEngine.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor method for initializing the KPIEngine.</span>
 
 <span class="sd">        :param topic: The Kafka topic to consume messages from.</span>
 <span class="sd">        :type topic: str</span>
@@ -146,7 +149,15 @@
 <span class="sd">        :return: A Kafka consumer instance configured for the specified topic.</span>
 <span class="sd">        :rtype: AIOKafkaConsumer</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">def</span> <span class="nf">decode_message</span><span class="p">(</span><span class="n">message</span><span class="p">):</span>
+
+        <span class="k">def</span> <span class="nf">decode_message</span><span class="p">(</span><span class="n">message</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Decodes the message from Kafka into a list of `RealTimeKPI` objects.</span>
+
+<span class="sd">            :param message: The message received from Kafka.</span>
+<span class="sd">            :type message: bytes</span>
+<span class="sd">            :return: A list of `RealTimeKPI` objects.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="p">[</span>
                 <span class="n">RealTimeKPI</span><span class="o">.</span><span class="n">from_json</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">item</span><span class="p">))</span>
                 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">message</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;utf-8&quot;</span><span class="p">))</span>
@@ -186,7 +197,7 @@
     <span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Continuously consumes messages from the Kafka topic, processes the data to compute KPIs,</span>
-<span class="sd">        and optionally sends the results to a GUI.</span>
+<span class="sd">        and sends the results to the GUI via WebSocket.</span>
 
 <span class="sd">        :param websocket: The websocket server on which to send data to the GUI</span>
 <span class="sd">        :type websocket: WebSocket</span>
@@ -219,7 +230,10 @@
         <span class="bp">self</span><span class="p">,</span> <span class="n">real_time_kpis</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">RealTimeKPI</span><span class="p">],</span> <span class="n">request</span><span class="p">:</span> <span class="n">RealTimeKPIRequest</span>
     <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">RealTimeKPIResponse</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Processes a batch of real-time KPI data to compute aggregated results based on the user-defined formula.</span>
+<span class="sd">        Processes a RealTimeKPIRequest and computes the real-time KPIs based on the provided data.</span>
+<span class="sd">        This method converts the RealTimeKPIs to numpy arrays, appends them to the already seen KPIs (in the streaming)</span>
+<span class="sd">        state variable, evaluates the formula with numexpr, handling time and machine-operation aggregations,</span>
+<span class="sd">        and finally returns a RealTimeKPIResponse object.</span>
 
 <span class="sd">        :param real_time_kpis: List of real-time KPI data objects.</span>
 <span class="sd">        :type real_time_kpis: list[RealTimeKPI]</span>
@@ -278,6 +292,8 @@
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Stops the Kafka consumer, cleans up WebSocket connections, and sends a termination signal</span>
 <span class="sd">        to the data preprocessing service.</span>
+<span class="sd">        This method notifies the data preprocessing service to stop sending data to the Kafka topic, stopping the</span>
+<span class="sd">        AIOKafkaProducer.</span>
 
 <span class="sd">        :raises Exception: If there is an error during the shutdown process.</span>
 <span class="sd">        &quot;&quot;&quot;</span>

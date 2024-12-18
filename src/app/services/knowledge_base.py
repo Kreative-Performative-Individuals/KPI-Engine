@@ -1,6 +1,6 @@
 import requests
 
-from src.app.models import exceptions
+from app.models import exceptions
 
 
 def get_kpi_formula(name: str) -> dict[str, str]:

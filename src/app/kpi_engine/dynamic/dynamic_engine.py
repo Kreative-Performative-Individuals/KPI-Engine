@@ -8,12 +8,12 @@ import numpy as np
 from nanoid import generate
 import requests
 
-import src.app.models.grammar as grammar
-import src.app.models.exceptions as exceptions
-from src.app.models.requests.rag import KPIRequest
-from src.app.models.responses.rag import KPIResponse
-from src.app.services.database import insert_aggregated_kpi
-from src.app.services.knowledge_base import (
+import app.models.grammar as grammar
+import app.models.exceptions as exceptions
+from app.models.requests.rag import KPIRequest
+from app.models.responses.rag import KPIResponse
+from app.services.database import insert_aggregated_kpi
+from app.services.knowledge_base import (
     get_kpi_formula,
     get_closest_instances,
     get_closest_kpi_formula,

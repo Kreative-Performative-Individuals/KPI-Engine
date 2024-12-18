@@ -1,5 +1,5 @@
 import requests
-from src.app.models.requests.data_processing import KPIStreamingRequest
+from app.models.requests.data_processing import KPIStreamingRequest
 
 
 def connect_to_publisher(kpi_streaming_request: KPIStreamingRequest):

@@ -20,7 +20,6 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="api package" href="app.api.html" />
-    <link rel="prev" title="index" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -118,7 +117,6 @@
 <li class="toctree-l1"><a class="reference internal" href="app.services.html">services package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.data_processing">services.data_processing module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.database">services.database module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.gui">services.gui module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="app.services.html#module-app.services.knowledge_base">services.knowledge_base module</a></li>
 </ul>
 </li>
@@ -140,14 +138,11 @@
 <dd><p>Health check GET endpoint.</p>
 <p>This endpoint is used to check if the service is running and responding correctly.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – This function takes no parameters.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A dictionary indicating the health status of the service.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary indicating the health status of the service.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -158,14 +153,11 @@
 <dd><p>Handles the root GET endpoint.
 This endpoint returns a welcome message to confirm that the service is running.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – This function takes no parameters.</p>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A welcome message.</p>
 </dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A dictionary containing a welcome message.</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -176,17 +168,6 @@ This endpoint returns a welcome message to confirm that the service is running.<
 <dd><p>Shuts down the application gracefully.</p>
 <p>This function is called when the application is about to shut down.
 It ensures that any necessary cleanup or shutdown processes are executed.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – This function takes no parameters.</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -197,17 +178,8 @@ It ensures that any necessary cleanup or shutdown processes are executed.</p>
 The host is determined based on the environment variable <cite>RUNNING_IN_DOCKER</cite>.
 If running inside Docker, the host is set to ‘0.0.0.0’, otherwise, it defaults to ‘127.0.0.1’.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>None</strong> – This function takes no parameters.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>RuntimeError</strong> – If the server fails to start.</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>None</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>None</p>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – If the server fails to start.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -219,7 +191,6 @@ If running inside Docker, the host is set to ‘0.0.0.0’, otherwise, it defaul
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="index" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="app.api.html" class="btn btn-neutral float-right" title="api package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

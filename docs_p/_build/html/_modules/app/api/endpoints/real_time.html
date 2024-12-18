@@ -69,10 +69,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for app.api.endpoints.real_time</h1><div class="highlight"><pre>
-<span></span><span class="c1"># src/app/endpoints/real_time.py</span>
+<span></span><span class="sd">&quot;&quot;&quot; Real-time KPI computation endpoint.&quot;&quot;&quot;</span>
 
 <span class="kn">import</span> <span class="nn">asyncio</span>
-<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">WebSocket</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">WebSocket</span><span class="p">,</span> <span class="n">WebSocketDisconnect</span>
 <span class="kn">from</span> <span class="nn">threading</span> <span class="kn">import</span> <span class="n">Event</span>
 <span class="kn">import</span> <span class="nn">os</span>
 
@@ -102,35 +102,39 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Manages a real-time KPI WebSocket session.</span>
 
-<span class="sd">    This function handles incoming WebSocket connections, allowing the client to start or stop </span>
-<span class="sd">    a real-time KPI session. It validates incoming messages and processes requests to either </span>
-<span class="sd">    initialize a session or terminate it. Invalid messages are met with an error response.</span>
+<span class="sd">    This function handles incoming WebSocket connections, allowing the client to start or stop</span>
+<span class="sd">    a real-time KPI session. It validates incoming messages and processes requests to either</span>
+<span class="sd">    initialize a session or terminate it. Invalid messages will result in the WebSocket connection</span>
+<span class="sd">    being closed. The session is managed by the `handle_real_time_session` function.</span>
 
 <span class="sd">    :param websocket: The WebSocket connection for client-server communication.</span>
 <span class="sd">    :type websocket: WebSocket</span>
-<span class="sd">    :return: A response indicating the result of the WebSocket operation.</span>
+<span class="sd">    :return: A response indicating the result of the WebSocket operation (informative).</span>
 <span class="sd">    :rtype: RealTimeResponse</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
 
-    <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
-
-        <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">receive_json</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;stop&quot;</span><span class="p">}:</span>
-            <span class="k">await</span> <span class="n">stop_consumer</span><span class="p">()</span>
-            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="k">break</span>
-        <span class="k">elif</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;start&quot;</span><span class="p">:</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting real-time session, data:&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-            <span class="n">request</span> <span class="o">=</span> <span class="n">RealTimeKPIRequest</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">])</span>
-            <span class="n">_</span> <span class="o">=</span> <span class="k">await</span> <span class="n">handle_real_time_session</span><span class="p">(</span><span class="n">websocket</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">response</span> <span class="o">=</span> <span class="n">RealTimeResponse</span><span class="p">(</span>
-                <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Invalid message received in the websocket&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
-            <span class="p">)</span>
-            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send_json</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
-            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
-            <span class="k">break</span></div>
+            <span class="n">data</span> <span class="o">=</span> <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">receive_json</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">data</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;stop&quot;</span><span class="p">}:</span>
+                <span class="k">await</span> <span class="n">stop_consumer</span><span class="p">()</span>
+                <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">break</span>
+            <span class="k">elif</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;start&quot;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Starting real-time session, data:&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+                <span class="n">request</span> <span class="o">=</span> <span class="n">RealTimeKPIRequest</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;request&quot;</span><span class="p">])</span>
+                <span class="n">_</span> <span class="o">=</span> <span class="k">await</span> <span class="n">handle_real_time_session</span><span class="p">(</span><span class="n">websocket</span><span class="p">,</span> <span class="n">request</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">response</span> <span class="o">=</span> <span class="n">RealTimeResponse</span><span class="p">(</span>
+                    <span class="n">message</span><span class="o">=</span><span class="s2">&quot;Invalid message received in the websocket&quot;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="mi">400</span>
+                <span class="p">)</span>
+                <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send_json</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">dict</span><span class="p">())</span>
+                <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">break</span>
+    <span class="k">except</span> <span class="n">WebSocketDisconnect</span><span class="p">:</span>
+        <span class="k">await</span> <span class="n">stop_consumer</span><span class="p">()</span>
+        <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
 
 
 
@@ -142,9 +146,10 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Initiates and manages a real-time KPI session.</span>
 
-<span class="sd">    This function validates the incoming request, prepares the necessary configurations for </span>
-<span class="sd">    KPI computation, and starts the Kafka consumer to process real-time data. It handles </span>
-<span class="sd">    errors during setup and ensures a proper session workflow.</span>
+<span class="sd">    This function validates the incoming request, prepares the necessary configurations for</span>
+<span class="sd">    KPI computation, and starts the AIOKafkaConsumer to process real-time data. The consumer is started asynchronously</span>
+<span class="sd">    in a separate task, allowing the WebSocket connection to remain open for real-time communication and the other</span>
+<span class="sd">    endpoints to be called concurrently. The session can be stopped by sending a &quot;stop&quot; message through the WebSocket.</span>
 
 <span class="sd">    :param websocket: The WebSocket connection used for real-time communication.</span>
 <span class="sd">    :type websocket: WebSocket</span>
@@ -207,8 +212,9 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Stops the currently running Kafka consumer.</span>
 
-<span class="sd">    This endpoint stops the real-time KPI session by signaling the Kafka consumer to</span>
-<span class="sd">    terminate, processing any remaining data, and closing all active connections.</span>
+<span class="sd">    This endpoint stops the real-time KPI session by signaling the Kafka consumer (in the :class:`KPIEngine</span>
+<span class="sd">    &lt;src.app.kpi_engine.kpi_engine.KPIEngine&gt;` to terminate, processing any remaining data, and closing all active</span>
+<span class="sd">    connections.</span>
 
 <span class="sd">    :return: A response indicating the success or failure of stopping the consumer.</span>
 <span class="sd">    :rtype: RealTimeResponse</span>

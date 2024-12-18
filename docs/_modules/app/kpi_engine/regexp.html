@@ -69,7 +69,8 @@
            <div itemprop="articleBody">
              
   <h1>Source code for app.kpi_engine.regexp</h1><div class="highlight"><pre>
-<span></span><span class="c1"># this clean the formulas that we get from the KB</span>
+<span></span><span class="sd">&quot;&quot;&quot; This module contains functions to clean and transform formulas for real-time evaluation. &quot;&quot;&quot;</span>
+
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 <span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">exceptions</span>
@@ -372,10 +373,9 @@
 <span class="sd">        - &#39;operations_f&#39;: The operations found in the formula.</span>
 <span class="sd">    :rtype: dict[str, str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">result</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;operations_f&quot;</span><span class="p">:</span> <span class="n">operation_IWO</span><span class="p">}</span>
 
     <span class="c1"># save in the result the operations idle working offline, if present</span>
-    <span class="n">result</span><span class="p">[</span><span class="s2">&quot;operations_f&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">operation_IWO</span>
     <span class="c1"># we catch if the formula has a particular structure with no</span>
     <span class="k">if</span> <span class="ow">not</span> <span class="n">operation_IWO</span><span class="p">:</span>
         <span class="n">result</span><span class="p">[</span><span class="s2">&quot;particular&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
@@ -405,8 +405,9 @@
 <span class="sd">    Replaces placeholders in the formula based on a mapping of positions to operation types.</span>
 
 <span class="sd">    :param formula: The formula string to modify.</span>
+<span class="sd">    :type formula: str</span>
 <span class="sd">    :param mapping: A dictionary mapping placeholder positions to operation types.</span>
-<span class="sd">    :param agg: The aggregation function to apply (e.g., &#39;sum&#39;).</span>
+<span class="sd">    :type mapping: dict[int, str]</span>
 <span class="sd">    :return: The modified formula with placeholders replaced.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 

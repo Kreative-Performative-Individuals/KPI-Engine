@@ -70,24 +70,24 @@
              
   <h1>Source code for app.services.data_processing</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">requests</span>
-<span class="c1">#from src.app.models.requests.data_processing import KPIStreamingRequest</span>
 <span class="kn">from</span> <span class="nn">app.models.requests.data_processing</span> <span class="kn">import</span> <span class="n">KPIStreamingRequest</span>
 
 
 <div class="viewcode-block" id="connect_to_publisher">
 <a class="viewcode-back" href="../../../app.services.html#app.services.data_processing.connect_to_publisher">[docs]</a>
 <span class="k">def</span> <span class="nf">connect_to_publisher</span><span class="p">(</span><span class="n">kpi_streaming_request</span><span class="p">:</span> <span class="n">KPIStreamingRequest</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Connects to a data producer and starts real-time data processing.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Connects to a data producer and starts real-time data processing.</span>
 
 <span class="sd">    This function sends a POST request to a data preprocessing service, providing</span>
-<span class="sd">    a `KPIStreamingRequest` object as the request body. The function attempts to </span>
-<span class="sd">    start the real-time processing of KPI data by invoking the corresponding API </span>
+<span class="sd">    a `KPIStreamingRequest` object as the request body. The function attempts to</span>
+<span class="sd">    start the real-time processing of KPI data by invoking the corresponding API</span>
 <span class="sd">    endpoint.</span>
 
-<span class="sd">    :param kpi_streaming_request: A `KPIStreamingRequest` object containing the data </span>
+<span class="sd">    :param kpi_streaming_request: A `KPIStreamingRequest` object containing the data</span>
 <span class="sd">                                  for the streaming request.</span>
 <span class="sd">    :type kpi_streaming_request: KPIStreamingRequest</span>
-<span class="sd">    :raises requests.exceptions.RequestException: If the request to the data </span>
+<span class="sd">    :raises requests.exceptions.RequestException: If the request to the data</span>
 <span class="sd">                                                 preprocessing service fails.</span>
 <span class="sd">    :return: The JSON response from the data preprocessing service or an error message.</span>
 <span class="sd">    :rtype: dict</span>

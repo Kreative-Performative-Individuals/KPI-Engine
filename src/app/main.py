@@ -3,8 +3,8 @@ import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import uvicorn
-from src.app.api.router import api_router
-from src.app.api.endpoints.real_time import shutdown_event
+from app.api.router import api_router
+from app.api.endpoints.real_time import shutdown_event
 
 app = FastAPI()
 

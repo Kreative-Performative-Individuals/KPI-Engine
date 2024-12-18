@@ -1,7 +1,7 @@
 import numpy as np
 import requests
 
-from src.app.models.requests.rag import KPIRequest
+from app.models.requests.rag import KPIRequest
 
 
 def insert_aggregated_kpi(

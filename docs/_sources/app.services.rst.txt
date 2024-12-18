@@ -17,14 +17,6 @@ services.database module
    :undoc-members:
    :show-inheritance:
 
-services.gui module
------------------------
-
-.. automodule:: app.services.gui
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 services.knowledge\_base module
 -----------------------------------
 

@@ -95,7 +95,9 @@
 <dt class="sig sig-object py" id="app.models.requests.data_processing.KPIStreamingRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.requests.data_processing.</span></span><span class="sig-name descname"><span class="pre">KPIStreamingRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">special</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/requests/data_processing.html#KPIStreamingRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.requests.data_processing.KPIStreamingRequest" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<p>Represents a request to stream KPIs for specific machines and operations.</p>
+<p>Represents a request to stream KPIs for specific machines and operations.
+This request is used to provide the data preprocessing container with the necessary information to start
+an AIOKafkaConsumer stream.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -154,8 +156,8 @@
 <dt class="sig sig-object py" id="app.models.requests.gui.RealTimeKPIRequest">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.requests.gui.</span></span><span class="sig-name descname"><span class="pre">RealTimeKPIRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_aggregation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/requests/gui.html#RealTimeKPIRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.requests.gui.RealTimeKPIRequest" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Represents a request for real-time KPI data with specific machines, operations,
-and aggregation details.</p>
+<p>Represents a request for real-time KPI data with specific machines, operations, and aggregation details.
+This request is sent by the GUI via the websocket protocol to provide information about the KPIs to be computed.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -202,7 +204,7 @@ and aggregation details.</p>
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.requests.rag.</span></span><span class="sig-name descname"><span class="pre">KPIRequest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">machines</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operations</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_aggregation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">start_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">end_date</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">datetime</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/requests/rag.html#KPIRequest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.requests.rag.KPIRequest" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
 <p>Represents the details of a KPI request, including the KPI name, machines, operations,
-aggregation function, and time range.</p>
+aggregation function, and time range. This request comes is generated by the RAG, handling the user prompt.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -261,7 +263,7 @@ Must be a positive integer.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.models.requests.rag.KPIRequest.validate_machines">
 <em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_machines</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/requests/rag.html#KPIRequest.validate_machines"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.requests.rag.KPIRequest.validate_machines" title="Link to this definition"></a></dt>
-<dd><p>Validates the machines parameter to ensure it is a list.</p>
+<dd><p>alidates the machines parameter to ensure it is a list.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>list</em>) – The list of machines.</p>
@@ -361,6 +363,10 @@ and matches one of the predefined options in the grammar module.</p>
 
 </dd></dl>
 
+</section>
+<section id="module-app.models.requests">
+</section>
+</section>
 
 
            </div>

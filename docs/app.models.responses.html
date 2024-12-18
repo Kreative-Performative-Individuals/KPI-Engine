@@ -174,12 +174,14 @@
 <dt class="sig sig-object py" id="app.models.responses.rag.KPIResponse">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.responses.rag.</span></span><span class="sig-name descname"><span class="pre">KPIResponse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/responses/rag.html#KPIResponse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.responses.rag.KPIResponse" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<p>Represents the response of a KPI computation, including a message and a value.</p>
+<p>Represents the response of a KPI computation, including a message and a value.
+This response is sent to the RAG after the kpi computation is completed, as well as the GUI in case of a chart
+request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>message</strong> (<em>str</em>) – A descriptive message about the KPI computation result.</p></li>
-<li><p><strong>value</strong> (<em>float</em>) – The computed value of the KPI.</p></li>
+<li><p><strong>value</strong> (<em>union</em><em>[</em><em>float</em><em>, </em><em>list</em><em>[</em><em>float</em><em>]</em><em>]</em>) – The computed value of the KPI if time-aggregated, or a list of values.</p></li>
 </ul>
 </dd>
 </dl>
@@ -194,26 +196,6 @@
 <dd><p>Configuration for the model, should be a dictionary conforming to [<cite>ConfigDict</cite>][pydantic.config.ConfigDict].</p>
 </dd></dl>
 
-<dl class="py method">
-<dt class="sig sig-object py" id="app.models.responses.rag.KPIResponse.validate_message">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">validate_message</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/responses/rag.html#KPIResponse.validate_message"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.responses.rag.KPIResponse.validate_message" title="Link to this definition"></a></dt>
-<dd><p>Validates the message parameter to ensure it is a string.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – The message describing the KPI computation result.</p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – If the message is not a string.</p>
-</dd>
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The validated message.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
-</dd>
-</dl>
-</dd></dl>
-
 <dl class="py attribute">
 <dt class="sig sig-object py" id="app.models.responses.rag.KPIResponse.value">
 <span class="sig-name descname"><span class="pre">value</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></em><a class="headerlink" href="#app.models.responses.rag.KPIResponse.value" title="Link to this definition"></a></dt>
@@ -221,6 +203,10 @@
 
 </dd></dl>
 
+</section>
+<section id="module-app.models.responses">
+</section>
+</section>
 
 
            </div>

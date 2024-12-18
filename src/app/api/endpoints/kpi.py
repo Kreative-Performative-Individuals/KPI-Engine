@@ -2,9 +2,9 @@
 
 from fastapi import APIRouter, HTTPException
 
-from src.app.kpi_engine.dynamic.dynamic_engine import compute
-from src.app.models.requests.rag import KPIRequest
-from src.app.models.responses.rag import KPIResponse
+from app.kpi_engine.dynamic.dynamic_engine import compute
+from app.models.requests.rag import KPIRequest
+from app.models.responses.rag import KPIResponse
 
 router = APIRouter()
 

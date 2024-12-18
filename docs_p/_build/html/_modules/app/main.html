@@ -77,9 +77,9 @@
 <span class="kn">from</span> <span class="nn">app.api.router</span> <span class="kn">import</span> <span class="n">api_router</span>
 <span class="kn">from</span> <span class="nn">app.api.endpoints.real_time</span> <span class="kn">import</span> <span class="n">shutdown_event</span>
 
-
 <span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
-<span class="c1">#Enable CORS</span>
+
+<span class="c1"># Enable CORS</span>
 <span class="n">app</span><span class="o">.</span><span class="n">add_middleware</span><span class="p">(</span>
     <span class="n">CORSMiddleware</span><span class="p">,</span>
     <span class="n">allow_origins</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">],</span>
@@ -94,16 +94,14 @@
 <div class="viewcode-block" id="start">
 <a class="viewcode-back" href="../../app.html#app.main.start">[docs]</a>
 <span class="k">def</span> <span class="nf">start</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Starts the FastAPI application using Uvicorn.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Starts the FastAPI application using Uvicorn.</span>
 
 <span class="sd">    This function initializes and runs the FastAPI application with Uvicorn server.</span>
 <span class="sd">    The host is determined based on the environment variable `RUNNING_IN_DOCKER`.</span>
 <span class="sd">    If running inside Docker, the host is set to &#39;0.0.0.0&#39;, otherwise, it defaults to &#39;127.0.0.1&#39;.</span>
 
-<span class="sd">    :param None: This function takes no parameters.</span>
 <span class="sd">    :raises RuntimeError: If the server fails to start.</span>
-<span class="sd">    :return: None</span>
-<span class="sd">    :rtype: None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">host</span> <span class="o">=</span> <span class="s2">&quot;127.0.0.1&quot;</span>
@@ -117,14 +115,12 @@
 <a class="viewcode-back" href="../../app.html#app.main.shutdown">[docs]</a>
 <span class="nd">@app</span><span class="o">.</span><span class="n">on_event</span><span class="p">(</span><span class="s2">&quot;shutdown&quot;</span><span class="p">)</span>
 <span class="k">async</span> <span class="k">def</span> <span class="nf">shutdown</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Shuts down the application gracefully.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Shuts down the application gracefully.</span>
 
 <span class="sd">    This function is called when the application is about to shut down.</span>
 <span class="sd">    It ensures that any necessary cleanup or shutdown processes are executed.</span>
 
-<span class="sd">    :param None: This function takes no parameters.</span>
-<span class="sd">    :return: None</span>
-<span class="sd">    :rtype: None</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">await</span> <span class="n">shutdown_event</span><span class="p">()</span></div>
 
@@ -134,11 +130,11 @@
 <a class="viewcode-back" href="../../app.html#app.main.read_root">[docs]</a>
 <span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">read_root</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Handles the root GET endpoint.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles the root GET endpoint.</span>
 <span class="sd">    This endpoint returns a welcome message to confirm that the service is running.</span>
 
-<span class="sd">    :param None: This function takes no parameters.</span>
-<span class="sd">    :return: A dictionary containing a welcome message.</span>
+<span class="sd">    :return: A welcome message.</span>
 <span class="sd">    :rtype: dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -150,11 +146,11 @@
 <a class="viewcode-back" href="../../app.html#app.main.health_check">[docs]</a>
 <span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health/&quot;</span><span class="p">)</span>
 <span class="k">def</span> <span class="nf">health_check</span><span class="p">():</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Health check GET endpoint.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Health check GET endpoint.</span>
 
 <span class="sd">    This endpoint is used to check if the service is running and responding correctly.</span>
 
-<span class="sd">    :param None: This function takes no parameters.</span>
 <span class="sd">    :return: A dictionary indicating the health status of the service.</span>
 <span class="sd">    :rtype: dict</span>
 <span class="sd">    &quot;&quot;&quot;</span>

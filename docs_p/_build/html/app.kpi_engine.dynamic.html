@@ -91,20 +91,30 @@
 <h1>kpi_engine.dynamic package<a class="headerlink" href="#kpi-engine-dynamic-package" title="Link to this heading"></a></h1>
 <section id="module-app.kpi_engine.dynamic.dynamic_engine">
 <span id="kpi-engine-dynamic-dynamic-engine-module"></span><h2>kpi_engine.dynamic.dynamic_engine module<a class="headerlink" href="#module-app.kpi_engine.dynamic.dynamic_engine" title="Link to this heading"></a></h2>
+<p>This module contains the dynamic KPI engine, which processes KPI formulas and performs calculations based on the</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.kpi_engine.dynamic.dynamic_engine.A">
 <span class="sig-prename descclassname"><span class="pre">app.kpi_engine.dynamic.dynamic_engine.</span></span><span class="sig-name descname"><span class="pre">A</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kpi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/app/kpi_engine/dynamic/dynamic_engine.html#A"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.dynamic.dynamic_engine.A" title="Link to this definition"></a></dt>
-<dd><p>Performs an aggregation operation on a KPI, applying it to the data. The available aggregation are: mean, sum, max, min, var, std.
-# keys_inv is the key of the dictionary with the partial result associated with the kpi
-:param kpi: The key performance indicator (KPI) formula to process, typically in the form of a string.
-:type kpi: str
-:param partial_result: A dictionary containing intermediate results for KPIs, used for aggregation.
-:type partial_result: dict[str, Any]
-:param kwargs: Additional optional parameters that may be passed for extended functionality.
-:type kwargs: dict, optional
-:raises ValueError: If the variable for aggregation is not found in the list of supported aggregations.
-:return: A string representing the key for the aggregated KPI result.
-:rtype: str</p>
+<dd><p>Performs an aggregation operation on a KPI, applying it to the data. The available aggregation are: mean, sum, max,
+min, var, std.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>kpi</strong> (<em>str</em>) – The substring of the original formula matching the A° case of the grammar</p></li>
+<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing intermediate results for KPIs, used for aggregation.</p></li>
+<li><p><strong>kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional optional parameters that may be passed for extended functionality.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the variable for aggregation is not found in the list of supported aggregations.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A string representing the key for the aggregated KPI result.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py function">
@@ -114,8 +124,10 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>kpi</strong> (<em>str</em>) – The KPI formula representing a constant, where the constant value is provided after the ‘°’ symbol (e.g., ‘C°100’).</p></li>
-<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing intermediate results for KPIs. It is updated with the constant value extracted from the ‘kpi’ parameter.</p></li>
+<li><p><strong>kpi</strong> (<em>str</em>) – The KPI formula representing a constant, where the constant value is provided after the ‘°’
+symbol (e.g., ‘C°100’).</p></li>
+<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing intermediate results for KPIs. It is updated with the constant value
+extracted from the ‘kpi’ parameter.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional optional parameters for extended functionality.</p></li>
 </ul>
 </dd>
@@ -135,9 +147,10 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>kpi</strong> (<em>str</em>) – The KPI formula that includes a database reference, used to query the database for the required data.</p></li>
-<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing intermediate results for KPIs. It is updated with the results from the database query.</p></li>
-<li><p><strong>request</strong> (<a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><em>KPIRequest</em></a>) – An object containing request data such as time intervals, machines, and operations needed for the database query.</p></li>
+<li><p><strong>kpi</strong> (<em>str</em>) – The substring of the original formula matching the D° case of the grammar</p></li>
+<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing intermediate results for KPIs. It is updated with the results from
+the database query.</p></li>
+<li><p><strong>request</strong> (<a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><em>KPIRequest</em></a>) – The associated KPIRequest.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional optional parameters for extended functionality.</p></li>
 </ul>
 </dd>
@@ -153,14 +166,19 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="app.kpi_engine.dynamic.dynamic_engine.R">
 <span class="sig-prename descclassname"><span class="pre">app.kpi_engine.dynamic.dynamic_engine.</span></span><span class="sig-name descname"><span class="pre">R</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kpi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formulas_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><span class="pre">KPIRequest</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/kpi_engine/dynamic/dynamic_engine.html#R"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.dynamic.dynamic_engine.R" title="Link to this definition"></a></dt>
-<dd><p>Resolves a reference to another KPI by looking up the corresponding formula in the formulas dictionary and calculating it using the dynamic_kpi function.</p>
+<dd><dl class="simple">
+<dt>Resolves a reference to another KPI by looking up the corresponding formula in the formulas dictionary and</dt><dd><p>calculating it using the dynamic_kpi function.</p>
+</dd>
+</dl>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>kpi</strong> (<em>str</em>) – The KPI formula that includes a reference to another KPI, in the form of a string (e.g., ‘R°some_formula’).</p></li>
-<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing intermediate results for KPIs. It is updated with the result of the referenced KPI.</p></li>
-<li><p><strong>formulas_dict</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – A dictionary mapping KPI names to their corresponding formulas. Used to look up the formula for the referenced KPI.</p></li>
-<li><p><strong>request</strong> (<a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><em>KPIRequest</em></a>) – An object containing request data such as time intervals, machines, and operations needed for KPI calculation.</p></li>
+<li><p><strong>kpi</strong> (<em>str</em>) – The substring of the original formula matching the R° case of the grammar</p></li>
+<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing intermediate results for KPIs. It is updated with the result of the
+referenced KPI.</p></li>
+<li><p><strong>formulas_dict</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>str</em><em>]</em>) – A dictionary mapping KPI names to their corresponding formulas. Used to look up the formula
+for the referenced KPI.</p></li>
+<li><p><strong>request</strong> (<a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><em>KPIRequest</em></a>) – The associated KPIRequest, that provides a useful context in the resolution of this part.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional optional parameters for extended functionality.</p></li>
 </ul>
 </dd>
@@ -183,8 +201,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>kpi</strong> (<em>str</em>) – The KPI formula representing the binary operation, typically in the form of a string.</p></li>
-<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing intermediate results for KPIs. It is updated with the result of the binary operation.</p></li>
+<li><p><strong>kpi</strong> (<em>str</em>) – The substring of the original formula matching the S° case of the grammar</p></li>
+<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing intermediate results for KPIs. It is updated with the result of the
+binary operation.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional optional parameters for extended functionality.</p></li>
 </ul>
 </dd>
@@ -204,8 +223,8 @@
 <dt class="sig sig-object py" id="app.kpi_engine.dynamic.dynamic_engine.check_machine_operation">
 <span class="sig-prename descclassname"><span class="pre">app.kpi_engine.dynamic.dynamic_engine.</span></span><span class="sig-name descname"><span class="pre">check_machine_operation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">machines</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operations</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/kpi_engine/dynamic/dynamic_engine.html#check_machine_operation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.dynamic.dynamic_engine.check_machine_operation" title="Link to this definition"></a></dt>
 <dd><p>Validates and adjusts the relationship between machines and operations.</p>
-<p>Ensures that the number of machines matches the number of operations. 
-If a single machine string is provided, it resolves to the closest instances and adjusts the operations list if necessary. 
+<p>Ensures that the number of machines matches the number of operations.
+If a single machine string is provided, it resolves to the closest instances and adjusts the operations list if necessary.
 Handles mismatches by attempting reconciliation or returning an error response.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -256,14 +275,20 @@ failure to fetch the formula, or any computation errors.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.kpi_engine.dynamic.dynamic_engine.dynamic_kpi">
 <span class="sig-prename descclassname"><span class="pre">app.kpi_engine.dynamic.dynamic_engine.</span></span><span class="sig-name descname"><span class="pre">dynamic_kpi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kpi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">formulas_dict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">partial_result</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><span class="pre">KPIRequest</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/kpi_engine/dynamic/dynamic_engine.html#dynamic_kpi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.dynamic.dynamic_engine.dynamic_kpi" title="Link to this definition"></a></dt>
-<dd><p>Processes a KPI formula string by evaluating and performing operations (D°, A°, S°, R°, C°) and resolving nested expressions. The function replaces parts of the string and recursively calls itself to process nested KPIs, returning the final computed result.</p>
+<dd><p>Processes a KPI formula string by evaluating and performing operations (D°, A°, S°, R°, C°) and resolving nested
+expressions. The function replaces parts of the string and recursively calls itself to process nested KPIs,
+returning the final computed result.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>kpi</strong> (<em>str</em>) – The KPI formula string to be processed. It may contain nested expressions enclosed in square brackets and operations (D°, A°, S°, R°, C°).</p></li>
-<li><p><strong>formulas_dict</strong> (<em>dict</em>) – A dictionary containing predefined formulas or other necessary information for the KPI calculation.</p></li>
-<li><p><strong>partial_result</strong> (<em>any</em>) – A partial result that is passed to calculation functions. It may contain intermediate data accumulated during processing.</p></li>
-<li><p><strong>request</strong> (<em>any</em>) – A request object that may contain additional parameters required for processing, for example in the context of an API or web service.</p></li>
+<li><p><strong>kpi</strong> (<em>str</em>) – The KPI formula string to be processed. It may contain nested expressions enclosed in square brackets
+and operations (D°, A°, S°, R°, C°).</p></li>
+<li><p><strong>formulas_dict</strong> (<em>dict</em>) – A dictionary containing predefined formulas or other necessary information for the KPI
+calculation.</p></li>
+<li><p><strong>partial_result</strong> (<em>any</em>) – A partial result that is passed to calculation functions. It may contain intermediate data
+accumulated during processing.</p></li>
+<li><p><strong>request</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">KPIRequest</span></code>) – A KPIRequest object that may contain additional parameters required for processing, for example in the
+context of an API or web service.</p></li>
 <li><p><strong>kwargs</strong> (<em>dict</em><em>, </em><em>optional</em>) – Additional arguments that can be passed to the function as needed.</p></li>
 </ul>
 </dd>
@@ -289,8 +314,10 @@ failure to fetch the formula, or any computation errors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>final_formula</strong> (<em>str</em>) – The final formula representing the KPI, formatted as ‘°key’, where ‘key’ corresponds to the key in the partial_result dictionary.</p></li>
-<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing partial results of KPIs. The key specified in ‘final_formula’ is used to access the corresponding data for aggregation.</p></li>
+<li><p><strong>final_formula</strong> (<em>str</em>) – The final formula representing the KPI, formatted as ‘°key’, where ‘key’ corresponds to the
+key in the partial_result dictionary.</p></li>
+<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing partial results of KPIs. The key specified in ‘final_formula’ is used
+to access the corresponding data for aggregation.</p></li>
 <li><p><strong>time_aggregation</strong> (<em>str</em>) – The time-based aggregation function to apply to the result (e.g., ‘mean’, ‘sum’).</p></li>
 </ul>
 </dd>
@@ -310,8 +337,9 @@ failure to fetch the formula, or any computation errors.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>kpi</strong> (<em>str</em>) – The KPI formula represented as a string, which is split by the ‘°’ symbol to extract the variables involved.</p></li>
-<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing partial results for KPIs. The function checks which keys in the formula are present in this dictionary.</p></li>
+<li><p><strong>kpi</strong> (<em>str</em>) – The KPI formula represented as a string, which is split by the ‘°’ symbol to extract the involved variables.</p></li>
+<li><p><strong>partial_result</strong> (<em>dict</em><em>[</em><em>str</em><em>, </em><em>Any</em><em>]</em>) – A dictionary containing partial results for KPIs. The function checks which keys in the
+formula are present in this dictionary.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -346,9 +374,9 @@ failure to fetch the formula, or any computation errors.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.kpi_engine.dynamic.dynamic_engine.query_DB">
 <span class="sig-prename descclassname"><span class="pre">app.kpi_engine.dynamic.dynamic_engine.</span></span><span class="sig-name descname"><span class="pre">query_DB</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kpi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><span class="pre">KPIRequest</span></a></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">ndarray</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/app/kpi_engine/dynamic/dynamic_engine.html#query_DB"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.dynamic.dynamic_engine.query_DB" title="Link to this definition"></a></dt>
-<dd><p>Queries the database for real-time data corresponding to a specific KPI, processes the data, 
+<dd><p>Queries the database for real-time data corresponding to a specific KPI, processes the data,
 and returns it in a split format based on the requested step.</p>
-<p>The function splits the data into steps for time aggregation, reshapes it into a 3D numpy array, 
+<p>The function splits the data into steps for time aggregation, reshapes it into a 3D numpy array,
 and handles any remainder data by returning it separately.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -359,7 +387,7 @@ and handles any remainder data by returning it separately.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tuple containing two numpy arrays: 
+<dd class="field-even"><p>A tuple containing two numpy arrays:
 - <cite>step_split</cite>: A 3D numpy array representing the data split by the given step.
 - <cite>bottom</cite>: A numpy array containing the remainder of the data that doesn’t fit into the step split.</p>
 </dd>
@@ -375,6 +403,11 @@ and handles any remainder data by returning it separately.</p>
 </dd>
 </dl>
 </dd></dl>
+
+</section>
+<section id="module-app.kpi_engine.dynamic">
+</section>
+</section>
 
 
            </div>

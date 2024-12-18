@@ -71,17 +71,17 @@
   <h1>Source code for app.services.knowledge_base</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">requests</span>
 
-<span class="c1">#from src.app.models import exceptions</span>
 <span class="kn">from</span> <span class="nn">app.models</span> <span class="kn">import</span> <span class="n">exceptions</span>
 
 
 <div class="viewcode-block" id="get_kpi_formula">
 <a class="viewcode-back" href="../../../app.services.html#app.services.knowledge_base.get_kpi_formula">[docs]</a>
 <span class="k">def</span> <span class="nf">get_kpi_formula</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetches the KPI formula from the knowledge base.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetches the KPI formula from the knowledge base.</span>
 
-<span class="sd">    This function makes a GET request to a knowledge base service to retrieve </span>
-<span class="sd">    the formula for the specified KPI. If the KPI formula is not found, </span>
+<span class="sd">    This function makes a GET request to a knowledge base service to retrieve</span>
+<span class="sd">    the formula for the specified KPI. If the KPI formula is not found,</span>
 <span class="sd">    it raises a `KPIFormulaNotFoundException`.</span>
 
 <span class="sd">    :param name: The name of the KPI for which the formula is requested.</span>
@@ -103,10 +103,11 @@
 <div class="viewcode-block" id="get_closest_kpi_formula">
 <a class="viewcode-back" href="../../../app.services.html#app.services.knowledge_base.get_closest_kpi_formula">[docs]</a>
 <span class="k">def</span> <span class="nf">get_closest_kpi_formula</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetches the closest matching KPI formula from the knowledge base.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetches the closest matching KPI formula from the knowledge base.</span>
 
-<span class="sd">    This function retrieves the closest matching KPI formula from the knowledge </span>
-<span class="sd">    base for a given KPI name. If the formula cannot be found, it raises a </span>
+<span class="sd">    This function retrieves the closest matching KPI formula from the knowledge</span>
+<span class="sd">    base for a given KPI name. If the formula cannot be found, it raises a</span>
 <span class="sd">    `KPIFormulaNotFoundException`.</span>
 
 <span class="sd">    :param name: The name of the KPI for which the closest formula is requested.</span>
@@ -127,10 +128,11 @@
 <div class="viewcode-block" id="get_closest_instances">
 <a class="viewcode-back" href="../../../app.services.html#app.services.knowledge_base.get_closest_instances">[docs]</a>
 <span class="k">def</span> <span class="nf">get_closest_instances</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Fetches the closest class instances from the knowledge base.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Fetches the closest class instances from the knowledge base.</span>
 
-<span class="sd">    This function retrieves the closest matching class instances from the </span>
-<span class="sd">    knowledge base for a given class name. If no instances are found, it raises </span>
+<span class="sd">    This function retrieves the closest matching class instances from the</span>
+<span class="sd">    knowledge base for a given class name. If no instances are found, it raises</span>
 <span class="sd">    a `KPIFormulaNotFoundException`.</span>
 
 <span class="sd">    :param name: The name of the OWL class for which the closest instances are requested.</span>

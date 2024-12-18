@@ -77,7 +77,10 @@
 <div class="viewcode-block" id="KPIStreamingRequest">
 <a class="viewcode-back" href="../../../../app.models.requests.html#app.models.requests.data_processing.KPIStreamingRequest">[docs]</a>
 <span class="k">class</span> <span class="nc">KPIStreamingRequest</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a request to stream KPIs for specific machines and operations.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a request to stream KPIs for specific machines and operations.</span>
+<span class="sd">    This request is used to provide the data preprocessing container with the necessary information to start</span>
+<span class="sd">    an AIOKafkaConsumer stream.</span>
 
 <span class="sd">    :param kpis: A list of KPIs to be streamed.</span>
 <span class="sd">    :type kpis: list[str]</span>
@@ -86,15 +89,17 @@
 <span class="sd">    :param operations: A list of operations related to the KPI request.</span>
 <span class="sd">    :type operations: list[str]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">kpis</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>  <span class="c1"># lis of all kpis</span>
-    <span class="n">machines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>  <span class="c1"># list of all machines</span>
-    <span class="n">operations</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>  <span class="c1"># list of all operations</span>
+
+    <span class="n">kpis</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">machines</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
+    <span class="n">operations</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>
     <span class="n">special</span><span class="p">:</span> <span class="nb">bool</span>
 
 <div class="viewcode-block" id="KPIStreamingRequest.to_json">
 <a class="viewcode-back" href="../../../../app.models.requests.html#app.models.requests.data_processing.KPIStreamingRequest.to_json">[docs]</a>
     <span class="k">def</span> <span class="nf">to_json</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Converts the KPIStreamingRequest object to a JSON string.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Converts the KPIStreamingRequest object to a JSON string.</span>
 
 <span class="sd">        :return: A JSON string representation of the KPIStreamingRequest.</span>
 <span class="sd">        :rtype: str</span>

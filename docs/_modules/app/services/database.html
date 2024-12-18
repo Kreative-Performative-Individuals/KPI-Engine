@@ -72,7 +72,6 @@
 <span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">requests</span>
 
-<span class="c1">#from src.app.models.requests.rag import KPIRequest</span>
 <span class="kn">from</span> <span class="nn">app.models.requests.rag</span> <span class="kn">import</span> <span class="n">KPIRequest</span>
 
 
@@ -83,13 +82,14 @@
     <span class="n">kpi_list</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span>
     <span class="n">value</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Inserts the aggregated KPI result into the database.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Inserts the aggregated KPI result into the database.</span>
 
-<span class="sd">    This function constructs an SQL `INSERT` query to store the aggregated KPI data </span>
-<span class="sd">    into a database. It inserts details such as the KPI name, the aggregated value, </span>
+<span class="sd">    This function constructs an SQL `INSERT` query to store the aggregated KPI data</span>
+<span class="sd">    into a database. It inserts details such as the KPI name, the aggregated value,</span>
 <span class="sd">    the relevant machines and operations, and the list of KPIs involved in the aggregation.</span>
 
-<span class="sd">    :param request: The KPI request containing details such as name, machines, </span>
+<span class="sd">    :param request: The KPI request containing details such as name, machines,</span>
 <span class="sd">                    operations, and date range for the aggregation.</span>
 <span class="sd">    :type request: KPIRequest</span>
 <span class="sd">    :param kpi_list: A list of KPIs that were involved in the aggregation.</span>
@@ -99,26 +99,22 @@
 <span class="sd">    :return: The response from the database after insertion.</span>
 <span class="sd">    :rtype: requests.Response</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">insert_query</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;</span>
-<span class="s2">        INSERT INTO aggregated_kpi (name, aggregated_value, begin_datetime, end_datetime, kpi_list, operations, machines, step)</span>
-<span class="s2">        VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">);</span>
-<span class="s2">    &quot;&quot;&quot;</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;aggregated_value&quot;</span><span class="p">:</span> <span class="n">value</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
+        <span class="s2">&quot;begin_datetime&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">start_date</span><span class="p">),</span>
+        <span class="s2">&quot;end_datetime&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">end_date</span><span class="p">),</span>
+        <span class="s2">&quot;kpi_list&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">kpi_list</span><span class="p">),</span>
+        <span class="s2">&quot;operations&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">operations</span><span class="p">,</span>
+        <span class="s2">&quot;machines&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">machines</span><span class="p">,</span>
+        <span class="s2">&quot;step&quot;</span><span class="p">:</span> <span class="n">request</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
+    <span class="p">}</span>
 
-    <span class="n">data</span> <span class="o">=</span> <span class="p">(</span>
-        <span class="n">request</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
-        <span class="n">value</span><span class="o">.</span><span class="n">item</span><span class="p">(),</span>
-        <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">start_date</span><span class="p">),</span>
-        <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">end_date</span><span class="p">),</span>
-        <span class="nb">list</span><span class="p">(</span><span class="n">kpi_list</span><span class="p">),</span>
-        <span class="n">request</span><span class="o">.</span><span class="n">operations</span><span class="p">,</span>
-        <span class="n">request</span><span class="o">.</span><span class="n">machines</span><span class="p">,</span>
-        <span class="n">request</span><span class="o">.</span><span class="n">step</span><span class="p">,</span>
-    <span class="p">)</span>
-
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inserting aggregated KPI data into the database...&quot;</span><span class="p">,</span> <span class="n">insert_query</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Inserting aggregated KPI data into the database...&quot;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
-        <span class="s2">&quot;http://smart-database-container:8002/insert&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;http://smart-database-container:8002/insert_aggregated_kpi&quot;</span><span class="p">,</span>
+        <span class="n">json</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
         <span class="n">timeout</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span>
     <span class="p">)</span></div>
 

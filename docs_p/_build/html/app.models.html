@@ -156,7 +156,6 @@
 <li class="toctree-l3"><a class="reference internal" href="app.models.responses.html#app.models.responses.rag.KPIResponse"><code class="docutils literal notranslate"><span class="pre">KPIResponse</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="app.models.responses.html#app.models.responses.rag.KPIResponse.message"><code class="docutils literal notranslate"><span class="pre">KPIResponse.message</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.models.responses.html#app.models.responses.rag.KPIResponse.model_config"><code class="docutils literal notranslate"><span class="pre">KPIResponse.model_config</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="app.models.responses.html#app.models.responses.rag.KPIResponse.validate_message"><code class="docutils literal notranslate"><span class="pre">KPIResponse.validate_message()</span></code></a></li>
 <li class="toctree-l4"><a class="reference internal" href="app.models.responses.html#app.models.responses.rag.KPIResponse.value"><code class="docutils literal notranslate"><span class="pre">KPIResponse.value</span></code></a></li>
 </ul>
 </li>
@@ -172,6 +171,12 @@
 <dt class="sig sig-object py" id="app.models.exceptions.DivisionByZeroException">
 <em class="property"><span class="pre">exception</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.exceptions.</span></span><span class="sig-name descname"><span class="pre">DivisionByZeroException</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">message</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'You</span> <span class="pre">have</span> <span class="pre">encountered</span> <span class="pre">a</span> <span class="pre">division</span> <span class="pre">by</span> <span class="pre">zero'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/exceptions.html#DivisionByZeroException"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.exceptions.DivisionByZeroException" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Exception</span></code></p>
+<p>Exception raised when a division by zero is encountered.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> (<em>str</em><em>, </em><em>optional</em>) – The error message to be associated with the exception, defaults to “You have encountered a division by zero”</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="py exception">
@@ -245,13 +250,13 @@
 <dt class="sig sig-object py" id="app.models.real_time_kpi.RealTimeKPI">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.models.real_time_kpi.</span></span><span class="sig-name descname"><span class="pre">RealTimeKPI</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpi</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">column</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">operation</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/models/real_time_kpi.html#RealTimeKPI"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.models.real_time_kpi.RealTimeKPI" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">BaseModel</span></code></p>
-<p>Represents a real-time KPI, containing the KPI name, the column name, 
-and a list of associated values.</p>
+<p>Represents a real-time KPI, containing the KPI name, the column name,
+and a list of associated values. This class serializes the value that are taken in the kafka stream.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>kpi</strong> (<em>str</em>) – The name of the KPI.</p></li>
-<li><p><strong>column</strong> (<em>str</em>) – The name of the column representing the data associated 
+<li><p><strong>column</strong> (<em>str</em>) – The name of the column representing the data associated
 with the KPI.</p></li>
 <li><p><strong>values</strong> (<em>list</em><em>[</em><em>float</em><em>]</em>) – A list of values associated with the KPI.</p></li>
 </ul>
@@ -268,11 +273,11 @@ with the KPI.</p></li>
 <dd><p>Creates an instance of the RealTimeKPI class from a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the KPI data with the keys 
+<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the KPI data with the keys
 ‘kpi’, ‘column’, and ‘values’.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>An instance of the RealTimeKPI class initialized with the 
+<dd class="field-even"><p>An instance of the RealTimeKPI class initialized with the
 dictionary data.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
@@ -303,6 +308,11 @@ dictionary data.</p>
 <dd></dd></dl>
 
 </dd></dl>
+
+</section>
+<section id="module-app.models">
+</section>
+</section>
 
 
            </div>

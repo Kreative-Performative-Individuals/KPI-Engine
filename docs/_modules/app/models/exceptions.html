@@ -72,11 +72,13 @@
 <div class="viewcode-block" id="EmptyQueryException">
 <a class="viewcode-back" href="../../../app.models.html#app.models.exceptions.EmptyQueryException">[docs]</a>
 <span></span><span class="k">class</span> <span class="nc">EmptyQueryException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception raised when a query returns an empty dataframe.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception raised when a query returns an empty dataframe.</span>
 
 <span class="sd">    :param message: The error message to be associated with the exception, defaults to &quot;The query returned an empty dataframe&quot;</span>
 <span class="sd">    :type message: str, optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">message</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;The query returned an empty dataframe&quot;</span>
@@ -87,11 +89,13 @@
 <div class="viewcode-block" id="InvalidFormulaReferenceException">
 <a class="viewcode-back" href="../../../app.models.html#app.models.exceptions.InvalidFormulaReferenceException">[docs]</a>
 <span class="k">class</span> <span class="nc">InvalidFormulaReferenceException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception raised when a formula is not found in the knowledge base (KB).</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception raised when a formula is not found in the knowledge base (KB).</span>
 
 <span class="sd">    :param message: The error message to be associated with the exception, defaults to &quot;The formula is not present in the KB&quot;</span>
 <span class="sd">    :type message: str, optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;The formula is not present in the KB&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
@@ -100,11 +104,13 @@
 <div class="viewcode-block" id="InvalidBinaryOperatorException">
 <a class="viewcode-back" href="../../../app.models.html#app.models.exceptions.InvalidBinaryOperatorException">[docs]</a>
 <span class="k">class</span> <span class="nc">InvalidBinaryOperatorException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception raised when a binary operator is not found in the list of available operations.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception raised when a binary operator is not found in the list of available operations.</span>
 
 <span class="sd">    :param message: The error message to be associated with the exception, defaults to &quot;A binary operator is not present in the list of operations&quot;</span>
 <span class="sd">    :type message: str, optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span>
         <span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;A binary operator is not present in the list of operations&quot;</span>
     <span class="p">):</span>
@@ -130,11 +136,13 @@
 <div class="viewcode-block" id="KPIFormulaNotFoundException">
 <a class="viewcode-back" href="../../../app.models.html#app.models.exceptions.KPIFormulaNotFoundException">[docs]</a>
 <span class="k">class</span> <span class="nc">KPIFormulaNotFoundException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Exception raised when a KPI formula cannot be found.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception raised when a KPI formula cannot be found.</span>
 
 <span class="sd">    :param message: The error message to be associated with the exception, defaults to &quot;KPI formula not found&quot;</span>
 <span class="sd">    :type message: str, optional</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;KPI formula not found&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 
@@ -143,6 +151,13 @@
 <div class="viewcode-block" id="DivisionByZeroException">
 <a class="viewcode-back" href="../../../app.models.html#app.models.exceptions.DivisionByZeroException">[docs]</a>
 <span class="k">class</span> <span class="nc">DivisionByZeroException</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Exception raised when a division by zero is encountered.</span>
+
+<span class="sd">    :param message: The error message to be associated with the exception, defaults to &quot;You have encountered a division by zero&quot;</span>
+<span class="sd">    :type message: str, optional</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="o">=</span><span class="s2">&quot;You have encountered a division by zero&quot;</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">message</span><span class="p">)</span></div>
 

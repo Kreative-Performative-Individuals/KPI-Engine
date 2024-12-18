@@ -75,20 +75,22 @@
 <div class="viewcode-block" id="RealTimeKPIRequest">
 <a class="viewcode-back" href="../../../../app.models.requests.html#app.models.requests.gui.RealTimeKPIRequest">[docs]</a>
 <span class="k">class</span> <span class="nc">RealTimeKPIRequest</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a request for real-time KPI data with specific machines, operations,</span>
-<span class="sd">        and aggregation details.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a request for real-time KPI data with specific machines, operations, and aggregation details.</span>
+<span class="sd">    This request is sent by the GUI via the websocket protocol to provide information about the KPIs to be computed.</span>
 
-<span class="sd">        :param name: The name of the KPI to be requested.</span>
-<span class="sd">        :type name: str</span>
-<span class="sd">        :param machines: A list of machines for which the KPI data is requested.</span>
-<span class="sd">        :type machines: list</span>
-<span class="sd">        :param operations: A list of operations related to the KPI request.</span>
-<span class="sd">        :type operations: list</span>
-<span class="sd">        :param time_aggregation: The time aggregation method</span>
-<span class="sd">        :type time_aggregation: str</span>
-<span class="sd">        :param start_date: The start date and time for the KPI data request (YYYY-MM-DD HH:MM:SS).</span>
-<span class="sd">        :type start_date: datetime</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    :param name: The name of the KPI to be requested.</span>
+<span class="sd">    :type name: str</span>
+<span class="sd">    :param machines: A list of machines for which the KPI data is requested.</span>
+<span class="sd">    :type machines: list</span>
+<span class="sd">    :param operations: A list of operations related to the KPI request.</span>
+<span class="sd">    :type operations: list</span>
+<span class="sd">    :param time_aggregation: The time aggregation method</span>
+<span class="sd">    :type time_aggregation: str</span>
+<span class="sd">    :param start_date: The start date and time for the KPI data request (YYYY-MM-DD HH:MM:SS).</span>
+<span class="sd">    :type start_date: datetime</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">machines</span><span class="p">:</span> <span class="nb">list</span>
     <span class="n">operations</span><span class="p">:</span> <span class="nb">list</span>
@@ -96,6 +98,21 @@
     <span class="n">start_date</span><span class="p">:</span> <span class="n">datetime</span>  <span class="c1"># (YYYY-MM-DD HH:MM:SS)</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">machines</span><span class="p">,</span> <span class="n">operations</span><span class="p">,</span> <span class="n">time_aggregation</span><span class="p">,</span> <span class="n">start_date</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Constructor method for initializing the RealTimeKPIRequest.</span>
+
+<span class="sd">        :param name: The name of the KPI to be requested.</span>
+<span class="sd">        :type name: str</span>
+<span class="sd">        :param machines: A list of machines for which the KPI data is requested.</span>
+<span class="sd">        :type machines: list</span>
+<span class="sd">        :param operations: A list of operations related to the KPI request.</span>
+<span class="sd">        :type operations: list</span>
+<span class="sd">        :param time_aggregation: The time aggregation method, such as &#39;min&#39;, &#39;max&#39;, &#39;mean&#39;, &#39;sum&#39;, &#39;var&#39;, or &#39;std&#39;.</span>
+<span class="sd">        :type time_aggregation: str</span>
+<span class="sd">        :param start_date: The start date and time for the KPI data request (YYYY-MM-DD HH:MM:SS).</span>
+<span class="sd">        :type start_date: datetime</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">machines</span> <span class="o">=</span> <span class="n">machines</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">operations</span> <span class="o">=</span> <span class="n">operations</span>

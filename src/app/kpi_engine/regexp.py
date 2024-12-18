@@ -2,8 +2,8 @@
 
 import re
 from typing import Any
-from src.app.models import exceptions
-from src.app.services.knowledge_base import get_closest_kpi_formula, get_kpi_formula
+from app.models import exceptions
+from app.services.knowledge_base import get_closest_kpi_formula, get_kpi_formula
 
 
 def clean_placeholders(formulas: dict[str, str]) -> (dict[str, str], dict[int, str]):

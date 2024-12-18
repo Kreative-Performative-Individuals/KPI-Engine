@@ -95,16 +95,16 @@
 <span class="sig-prename descclassname"><span class="pre">app.services.data_processing.</span></span><span class="sig-name descname"><span class="pre">connect_to_publisher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">kpi_streaming_request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.data_processing.KPIStreamingRequest" title="app.models.requests.data_processing.KPIStreamingRequest"><span class="pre">KPIStreamingRequest</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/data_processing.html#connect_to_publisher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.data_processing.connect_to_publisher" title="Link to this definition"></a></dt>
 <dd><p>Connects to a data producer and starts real-time data processing.</p>
 <p>This function sends a POST request to a data preprocessing service, providing
-a <cite>KPIStreamingRequest</cite> object as the request body. The function attempts to 
-start the real-time processing of KPI data by invoking the corresponding API 
+a <cite>KPIStreamingRequest</cite> object as the request body. The function attempts to
+start the real-time processing of KPI data by invoking the corresponding API
 endpoint.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>kpi_streaming_request</strong> (<a class="reference internal" href="app.models.requests.html#app.models.requests.data_processing.KPIStreamingRequest" title="app.models.requests.data_processing.KPIStreamingRequest"><em>KPIStreamingRequest</em></a>) – A <cite>KPIStreamingRequest</cite> object containing the data 
+<dd class="field-odd"><p><strong>kpi_streaming_request</strong> (<a class="reference internal" href="app.models.requests.html#app.models.requests.data_processing.KPIStreamingRequest" title="app.models.requests.data_processing.KPIStreamingRequest"><em>KPIStreamingRequest</em></a>) – A <cite>KPIStreamingRequest</cite> object containing the data
 for the streaming request.</p>
 </dd>
 <dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>requests.exceptions.RequestException</strong> – If the request to the data 
+<dd class="field-even"><p><strong>requests.exceptions.RequestException</strong> – If the request to the data
 preprocessing service fails.</p>
 </dd>
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -123,13 +123,13 @@ preprocessing service fails.</p>
 <dt class="sig sig-object py" id="app.services.database.insert_aggregated_kpi">
 <span class="sig-prename descclassname"><span class="pre">app.services.database.</span></span><span class="sig-name descname"><span class="pre">insert_aggregated_kpi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><span class="pre">KPIRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">kpi_list</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float64</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/services/database.html#insert_aggregated_kpi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.database.insert_aggregated_kpi" title="Link to this definition"></a></dt>
 <dd><p>Inserts the aggregated KPI result into the database.</p>
-<p>This function constructs an SQL <cite>INSERT</cite> query to store the aggregated KPI data 
-into a database. It inserts details such as the KPI name, the aggregated value, 
+<p>This function constructs an SQL <cite>INSERT</cite> query to store the aggregated KPI data
+into a database. It inserts details such as the KPI name, the aggregated value,
 the relevant machines and operations, and the list of KPIs involved in the aggregation.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>request</strong> (<a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><em>KPIRequest</em></a>) – The KPI request containing details such as name, machines, 
+<li><p><strong>request</strong> (<a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><em>KPIRequest</em></a>) – The KPI request containing details such as name, machines,
 operations, and date range for the aggregation.</p></li>
 <li><p><strong>kpi_list</strong> (<em>list</em>) – A list of KPIs that were involved in the aggregation.</p></li>
 <li><p><strong>value</strong> (<em>np.float64</em>) – The aggregated KPI value calculated from the input KPIs.</p></li>
@@ -145,17 +145,14 @@ operations, and date range for the aggregation.</p></li>
 </dd></dl>
 
 </section>
-<section id="module-app.services.gui">
-<span id="services-gui-module"></span><h2>services.gui module<a class="headerlink" href="#module-app.services.gui" title="Link to this heading"></a></h2>
-</section>
 <section id="module-app.services.knowledge_base">
 <span id="services-knowledge-base-module"></span><h2>services.knowledge_base module<a class="headerlink" href="#module-app.services.knowledge_base" title="Link to this heading"></a></h2>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.services.knowledge_base.get_closest_instances">
 <span class="sig-prename descclassname"><span class="pre">app.services.knowledge_base.</span></span><span class="sig-name descname"><span class="pre">get_closest_instances</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/app/services/knowledge_base.html#get_closest_instances"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.knowledge_base.get_closest_instances" title="Link to this definition"></a></dt>
 <dd><p>Fetches the closest class instances from the knowledge base.</p>
-<p>This function retrieves the closest matching class instances from the 
-knowledge base for a given class name. If no instances are found, it raises 
+<p>This function retrieves the closest matching class instances from the
+knowledge base for a given class name. If no instances are found, it raises
 a <cite>KPIFormulaNotFoundException</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -177,8 +174,8 @@ a <cite>KPIFormulaNotFoundException</cite>.</p>
 <dt class="sig sig-object py" id="app.services.knowledge_base.get_closest_kpi_formula">
 <span class="sig-prename descclassname"><span class="pre">app.services.knowledge_base.</span></span><span class="sig-name descname"><span class="pre">get_closest_kpi_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="_modules/app/services/knowledge_base.html#get_closest_kpi_formula"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.knowledge_base.get_closest_kpi_formula" title="Link to this definition"></a></dt>
 <dd><p>Fetches the closest matching KPI formula from the knowledge base.</p>
-<p>This function retrieves the closest matching KPI formula from the knowledge 
-base for a given KPI name. If the formula cannot be found, it raises a 
+<p>This function retrieves the closest matching KPI formula from the knowledge
+base for a given KPI name. If the formula cannot be found, it raises a
 <cite>KPIFormulaNotFoundException</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -200,8 +197,8 @@ base for a given KPI name. If the formula cannot be found, it raises a
 <dt class="sig sig-object py" id="app.services.knowledge_base.get_kpi_formula">
 <span class="sig-prename descclassname"><span class="pre">app.services.knowledge_base.</span></span><span class="sig-name descname"><span class="pre">get_kpi_formula</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/app/services/knowledge_base.html#get_kpi_formula"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.services.knowledge_base.get_kpi_formula" title="Link to this definition"></a></dt>
 <dd><p>Fetches the KPI formula from the knowledge base.</p>
-<p>This function makes a GET request to a knowledge base service to retrieve 
-the formula for the specified KPI. If the KPI formula is not found, 
+<p>This function makes a GET request to a knowledge base service to retrieve
+the formula for the specified KPI. If the KPI formula is not found,
 it raises a <cite>KPIFormulaNotFoundException</cite>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -218,6 +215,11 @@ it raises a <cite>KPIFormulaNotFoundException</cite>.</p>
 </dd>
 </dl>
 </dd></dl>
+
+</section>
+<section id="module-app.services">
+</section>
+</section>
 
 
            </div>

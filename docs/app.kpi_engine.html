@@ -112,7 +112,7 @@
 </div>
 <section id="module-app.kpi_engine.kpi_engine">
 <span id="kpi-engine-kpi-engine-module"></span><h2>kpi_engine.kpi_engine module<a class="headerlink" href="#module-app.kpi_engine.kpi_engine" title="Link to this heading"></a></h2>
-<p>KPI Calculation Engine.</p>
+<p>(Real Time) KPI Calculation Engine.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="app.kpi_engine.kpi_engine.KPIEngine">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.kpi_engine.kpi_engine.</span></span><span class="sig-name descname"><span class="pre">KPIEngine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topic</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">servers</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">evaluable_formula_info</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/kpi_engine/kpi_engine.html#KPIEngine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.kpi_engine.KPIEngine" title="Link to this definition"></a></dt>
@@ -134,7 +134,10 @@ operations, and aggregation rules for KPI computation.</p></li>
 <dl class="py method">
 <dt class="sig sig-object py" id="app.kpi_engine.kpi_engine.KPIEngine.compute_real_time">
 <span class="sig-name descname"><span class="pre">compute_real_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">real_time_kpis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="app.models.html#app.models.real_time_kpi.RealTimeKPI" title="app.models.real_time_kpi.RealTimeKPI"><span class="pre">RealTimeKPI</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.gui.RealTimeKPIRequest" title="app.models.requests.gui.RealTimeKPIRequest"><span class="pre">RealTimeKPIRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="app.models.responses.html#app.models.responses.gui.RealTimeKPIResponse" title="app.models.responses.gui.RealTimeKPIResponse"><span class="pre">RealTimeKPIResponse</span></a></span></span><a class="reference internal" href="_modules/app/kpi_engine/kpi_engine.html#KPIEngine.compute_real_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.kpi_engine.KPIEngine.compute_real_time" title="Link to this definition"></a></dt>
-<dd><p>Processes a batch of real-time KPI data to compute aggregated results based on the user-defined formula.</p>
+<dd><p>Processes a RealTimeKPIRequest and computes the real-time KPIs based on the provided data.
+This method converts the RealTimeKPIs to numpy arrays, appends them to the already seen KPIs (in the streaming)
+state variable, evaluates the formula with numexpr, handling time and machine-operation aggregations,
+and finally returns a RealTimeKPIResponse object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -155,7 +158,7 @@ operations, and aggregation rules for KPI computation.</p></li>
 <dt class="sig sig-object py" id="app.kpi_engine.kpi_engine.KPIEngine.consume">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">consume</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">websocket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">WebSocket</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.gui.RealTimeKPIRequest" title="app.models.requests.gui.RealTimeKPIRequest"><span class="pre">RealTimeKPIRequest</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop_event</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/kpi_engine/kpi_engine.html#KPIEngine.consume"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.kpi_engine.KPIEngine.consume" title="Link to this definition"></a></dt>
 <dd><p>Continuously consumes messages from the Kafka topic, processes the data to compute KPIs,
-and optionally sends the results to a GUI.</p>
+and sends the results to the GUI via WebSocket.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -210,7 +213,9 @@ for messages on the assigned topic.</p>
 <dt class="sig sig-object py" id="app.kpi_engine.kpi_engine.KPIEngine.stop">
 <em class="property"><span class="pre">async</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/kpi_engine/kpi_engine.html#KPIEngine.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.kpi_engine.KPIEngine.stop" title="Link to this definition"></a></dt>
 <dd><p>Stops the Kafka consumer, cleans up WebSocket connections, and sends a termination signal
-to the data preprocessing service.</p>
+to the data preprocessing service.
+This method notifies the data preprocessing service to stop sending data to the Kafka topic, stopping the
+AIOKafkaProducer.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>Exception</strong> – If there is an error during the shutdown process.</p>
@@ -223,6 +228,7 @@ to the data preprocessing service.</p>
 </section>
 <section id="module-app.kpi_engine.regexp">
 <span id="kpi-engine-regexp-module"></span><h2>kpi_engine.regexp module<a class="headerlink" href="#module-app.kpi_engine.regexp" title="Link to this heading"></a></h2>
+<p>This module contains functions to clean and transform formulas for real-time evaluation.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.kpi_engine.regexp.clean_placeholders">
 <span class="sig-prename descclassname"><span class="pre">app.kpi_engine.regexp.</span></span><span class="sig-name descname"><span class="pre">clean_placeholders</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formulas</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/app/kpi_engine/regexp.html#clean_placeholders"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.kpi_engine.regexp.clean_placeholders" title="Link to this definition"></a></dt>
@@ -313,9 +319,8 @@ If there are binary operations, it transforms them into a numexpr-parsable formu
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>formula</strong> – The formula string to modify.</p></li>
-<li><p><strong>mapping</strong> – A dictionary mapping placeholder positions to operation types.</p></li>
-<li><p><strong>agg</strong> – The aggregation function to apply (e.g., ‘sum’).</p></li>
+<li><p><strong>formula</strong> (<em>str</em>) – The formula string to modify.</p></li>
+<li><p><strong>mapping</strong> (<em>dict</em><em>[</em><em>int</em><em>, </em><em>str</em><em>]</em>) – A dictionary mapping placeholder positions to operation types.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -367,6 +372,10 @@ and handles constants by replacing them with the actual numeric value.</p>
 </dl>
 </dd></dl>
 
+</section>
+<section id="module-app.kpi_engine">
+</section>
+</section>
 
 
            </div>

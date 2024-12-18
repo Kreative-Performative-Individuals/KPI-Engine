@@ -69,7 +69,9 @@
            <div itemprop="articleBody">
              
   <h1>Source code for app.kpi_engine.dynamic.dynamic_engine</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<span></span><span class="sd">&quot;&quot;&quot; This module contains the dynamic KPI engine, which processes KPI formulas and performs calculations based on the&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
 
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -98,17 +100,23 @@
     <span class="n">request</span><span class="p">:</span> <span class="n">KPIRequest</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Processes a KPI formula string by evaluating and performing operations (D°, A°, S°, R°, C°) and resolving nested</span>
+<span class="sd">    expressions. The function replaces parts of the string and recursively calls itself to process nested KPIs,</span>
+<span class="sd">    returning the final computed result.</span>
 
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Processes a KPI formula string by evaluating and performing operations (D°, A°, S°, R°, C°) and resolving nested expressions. The function replaces parts of the string and recursively calls itself to process nested KPIs, returning the final computed result.</span>
-
-<span class="sd">    :param kpi: The KPI formula string to be processed. It may contain nested expressions enclosed in square brackets and operations (D°, A°, S°, R°, C°).</span>
+<span class="sd">    :param kpi: The KPI formula string to be processed. It may contain nested expressions enclosed in square brackets</span>
+<span class="sd">        and operations (D°, A°, S°, R°, C°).</span>
 <span class="sd">    :type kpi: str</span>
-<span class="sd">    :param formulas_dict: A dictionary containing predefined formulas or other necessary information for the KPI calculation.</span>
+<span class="sd">    :param formulas_dict: A dictionary containing predefined formulas or other necessary information for the KPI</span>
+<span class="sd">        calculation.</span>
 <span class="sd">    :type formulas_dict: dict</span>
-<span class="sd">    :param partial_result: A partial result that is passed to calculation functions. It may contain intermediate data accumulated during processing.</span>
+<span class="sd">    :param partial_result: A partial result that is passed to calculation functions. It may contain intermediate data</span>
+<span class="sd">        accumulated during processing.</span>
 <span class="sd">    :type partial_result: any</span>
-<span class="sd">    :param request: A request object that may contain additional parameters required for processing, for example in the context of an API or web service.</span>
-<span class="sd">    :type request: any</span>
+<span class="sd">    :param request: A KPIRequest object that may contain additional parameters required for processing, for example in the</span>
+<span class="sd">        context of an API or web service.</span>
+<span class="sd">    :type request: :class:`KPIRequest`</span>
 <span class="sd">    :param kwargs: Additional arguments that can be passed to the function as needed.</span>
 <span class="sd">    :type kwargs: dict, optional</span>
 
@@ -180,10 +188,10 @@
 <a class="viewcode-back" href="../../../../app.kpi_engine.dynamic.html#app.kpi_engine.dynamic.dynamic_engine.query_DB">[docs]</a>
 <span class="k">def</span> <span class="nf">query_DB</span><span class="p">(</span><span class="n">kpi</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">request</span><span class="p">:</span> <span class="n">KPIRequest</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Queries the database for real-time data corresponding to a specific KPI, processes the data, </span>
+<span class="sd">    Queries the database for real-time data corresponding to a specific KPI, processes the data,</span>
 <span class="sd">    and returns it in a split format based on the requested step.</span>
 
-<span class="sd">    The function splits the data into steps for time aggregation, reshapes it into a 3D numpy array, </span>
+<span class="sd">    The function splits the data into steps for time aggregation, reshapes it into a 3D numpy array,</span>
 <span class="sd">    and handles any remainder data by returning it separately.</span>
 
 <span class="sd">    :param kpi: The KPI identifier, containing the name of the KPI and the database column reference.</span>
@@ -191,7 +199,7 @@
 <span class="sd">    :param request: The KPIRequest object containing the machines, operations, and time range for the query.</span>
 <span class="sd">    :type request: KPIRequest</span>
 <span class="sd">    :param kwargs: Additional keyword arguments (not used in this function but can be included for extensibility).</span>
-<span class="sd">    :return: A tuple containing two numpy arrays: </span>
+<span class="sd">    :return: A tuple containing two numpy arrays:</span>
 <span class="sd">             - `step_split`: A 3D numpy array representing the data split by the given step.</span>
 <span class="sd">             - `bottom`: A numpy array containing the remainder of the data that doesn&#39;t fit into the step split.</span>
 <span class="sd">    :rtype: tuple[np.ndarray, np.ndarray]</span>
@@ -228,15 +236,14 @@
             <span class="s2">&quot;start_date&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">start_date</span><span class="p">),</span>
             <span class="s2">&quot;end_date&quot;</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">end_date</span><span class="p">),</span>
             <span class="s2">&quot;kpi_name&quot;</span><span class="p">:</span> <span class="n">before_last_underscore</span><span class="p">,</span>
-            <span class="s2">&quot;column_name&quot;</span><span class="p">:</span> <span class="n">after_last_underscore</span><span class="p">,</span>
+            <span class="s2">&quot;asset_id&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
             <span class="s2">&quot;machines&quot;</span><span class="p">:</span> <span class="n">machines_to_send</span><span class="p">,</span>
             <span class="s2">&quot;operations&quot;</span><span class="p">:</span> <span class="n">operations_to_send</span><span class="p">,</span>
+            <span class="s2">&quot;column_name&quot;</span><span class="p">:</span> <span class="n">after_last_underscore</span><span class="p">,</span>
         <span class="p">},</span>
         <span class="n">timeout</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
     <span class="p">)</span>
-    <span class="c1"># json={&quot;statement&quot;: insert_query, &quot;data&quot;: data},</span>
 
-    <span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;data&quot;</span><span class="p">]</span>
 
     <span class="n">dataframe</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
@@ -285,9 +292,11 @@
 <div class="viewcode-block" id="A">
 <a class="viewcode-back" href="../../../../app.kpi_engine.dynamic.html#app.kpi_engine.dynamic.dynamic_engine.A">[docs]</a>
 <span class="k">def</span> <span class="nf">A</span><span class="p">(</span><span class="n">kpi</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">partial_result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Performs an aggregation operation on a KPI, applying it to the data. The available aggregation are: mean, sum, max, min, var, std.</span>
-<span class="sd">    # keys_inv is the key of the dictionary with the partial result associated with the kpi</span>
-<span class="sd">    :param kpi: The key performance indicator (KPI) formula to process, typically in the form of a string.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs an aggregation operation on a KPI, applying it to the data. The available aggregation are: mean, sum, max,</span>
+<span class="sd">    min, var, std.</span>
+
+<span class="sd">    :param kpi: The substring of the original formula matching the A° case of the grammar</span>
 <span class="sd">    :type kpi: str</span>
 <span class="sd">    :param partial_result: A dictionary containing intermediate results for KPIs, used for aggregation.</span>
 <span class="sd">    :type partial_result: dict[str, Any]</span>
@@ -340,11 +349,13 @@
 <div class="viewcode-block" id="S">
 <a class="viewcode-back" href="../../../../app.kpi_engine.dynamic.html#app.kpi_engine.dynamic.dynamic_engine.S">[docs]</a>
 <span class="k">def</span> <span class="nf">S</span><span class="p">(</span><span class="n">kpi</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">partial_result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Performs a binary operation between two KPIs, updating the partial result dictionary with the computed value.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Performs a binary operation between two KPIs, updating the partial result dictionary with the computed value.</span>
 
-<span class="sd">    :param kpi: The KPI formula representing the binary operation, typically in the form of a string.</span>
+<span class="sd">    :param kpi: The substring of the original formula matching the S° case of the grammar</span>
 <span class="sd">    :type kpi: str</span>
-<span class="sd">    :param partial_result: A dictionary containing intermediate results for KPIs. It is updated with the result of the binary operation.</span>
+<span class="sd">    :param partial_result: A dictionary containing intermediate results for KPIs. It is updated with the result of the</span>
+<span class="sd">        binary operation.</span>
 <span class="sd">    :type partial_result: dict[str, Any]</span>
 <span class="sd">    :param kwargs: Additional optional parameters for extended functionality.</span>
 <span class="sd">    :type kwargs: dict, optional</span>
@@ -375,15 +386,19 @@
     <span class="n">request</span><span class="p">:</span> <span class="n">KPIRequest</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Resolves a reference to another KPI by looking up the corresponding formula in the formulas dictionary and calculating it using the dynamic_kpi function.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Resolves a reference to another KPI by looking up the corresponding formula in the formulas dictionary and</span>
+<span class="sd">        calculating it using the dynamic_kpi function.</span>
 
-<span class="sd">    :param kpi: The KPI formula that includes a reference to another KPI, in the form of a string (e.g., &#39;R°some_formula&#39;).</span>
+<span class="sd">    :param kpi: The substring of the original formula matching the R° case of the grammar</span>
 <span class="sd">    :type kpi: str</span>
-<span class="sd">    :param partial_result: A dictionary containing intermediate results for KPIs. It is updated with the result of the referenced KPI.</span>
+<span class="sd">    :param partial_result: A dictionary containing intermediate results for KPIs. It is updated with the result of the</span>
+<span class="sd">        referenced KPI.</span>
 <span class="sd">    :type partial_result: dict[str, Any]</span>
-<span class="sd">    :param formulas_dict: A dictionary mapping KPI names to their corresponding formulas. Used to look up the formula for the referenced KPI.</span>
+<span class="sd">    :param formulas_dict: A dictionary mapping KPI names to their corresponding formulas. Used to look up the formula</span>
+<span class="sd">        for the referenced KPI.</span>
 <span class="sd">    :type formulas_dict: dict[str, str]</span>
-<span class="sd">    :param request: An object containing request data such as time intervals, machines, and operations needed for KPI calculation.</span>
+<span class="sd">    :param request: The associated KPIRequest, that provides a useful context in the resolution of this part.</span>
 <span class="sd">    :type request: KPIRequest</span>
 <span class="sd">    :param kwargs: Additional optional parameters for extended functionality.</span>
 <span class="sd">    :type kwargs: dict, optional</span>
@@ -391,8 +406,6 @@
 <span class="sd">    :return: The result of calculating the referenced KPI formula, as a string.</span>
 <span class="sd">    :rtype: str</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">kpi_split</span> <span class="o">=</span> <span class="n">kpi</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;°&quot;</span><span class="p">)</span>
 
     <span class="n">kpi_split</span> <span class="o">=</span> <span class="n">kpi</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;°&quot;</span><span class="p">)</span>
     <span class="n">kpi_involved</span> <span class="o">=</span> <span class="n">kpi_split</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
@@ -427,13 +440,15 @@
     <span class="n">request</span><span class="p">:</span> <span class="n">KPIRequest</span><span class="p">,</span>
     <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Executes a database query to retrieve data for a KPI and stores the results in the partial_result dictionary.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Executes a database query to retrieve data for a KPI and stores the results in the partial_result dictionary.</span>
 
-<span class="sd">    :param kpi: The KPI formula that includes a database reference, used to query the database for the required data.</span>
+<span class="sd">    :param kpi: The substring of the original formula matching the D° case of the grammar</span>
 <span class="sd">    :type kpi: str</span>
-<span class="sd">    :param partial_result: A dictionary containing intermediate results for KPIs. It is updated with the results from the database query.</span>
+<span class="sd">    :param partial_result: A dictionary containing intermediate results for KPIs. It is updated with the results from</span>
+<span class="sd">        the database query.</span>
 <span class="sd">    :type partial_result: dict[str, Any]</span>
-<span class="sd">    :param request: An object containing request data such as time intervals, machines, and operations needed for the database query.</span>
+<span class="sd">    :param request: The associated KPIRequest.</span>
 <span class="sd">    :type request: KPIRequest</span>
 <span class="sd">    :param kwargs: Additional optional parameters for extended functionality.</span>
 <span class="sd">    :type kwargs: dict, optional</span>
@@ -462,11 +477,14 @@
 <div class="viewcode-block" id="C">
 <a class="viewcode-back" href="../../../../app.kpi_engine.dynamic.html#app.kpi_engine.dynamic.dynamic_engine.C">[docs]</a>
 <span class="k">def</span> <span class="nf">C</span><span class="p">(</span><span class="n">kpi</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">partial_result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Handles constant KPIs by storing a fixed value in the partial_result dictionary.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Handles constant KPIs by storing a fixed value in the partial_result dictionary.</span>
 
-<span class="sd">    :param kpi: The KPI formula representing a constant, where the constant value is provided after the &#39;°&#39; symbol (e.g., &#39;C°100&#39;).</span>
+<span class="sd">    :param kpi: The KPI formula representing a constant, where the constant value is provided after the &#39;°&#39;</span>
+<span class="sd">        symbol (e.g., &#39;C°100&#39;).</span>
 <span class="sd">    :type kpi: str</span>
-<span class="sd">    :param partial_result: A dictionary containing intermediate results for KPIs. It is updated with the constant value extracted from the &#39;kpi&#39; parameter.</span>
+<span class="sd">    :param partial_result: A dictionary containing intermediate results for KPIs. It is updated with the constant value</span>
+<span class="sd">        extracted from the &#39;kpi&#39; parameter.</span>
 <span class="sd">    :type partial_result: dict[str, Any]</span>
 <span class="sd">    :param kwargs: Additional optional parameters for extended functionality.</span>
 <span class="sd">    :type kwargs: dict, optional</span>
@@ -483,7 +501,8 @@
 <div class="viewcode-block" id="compute">
 <a class="viewcode-back" href="../../../../app.kpi_engine.dynamic.html#app.kpi_engine.dynamic.dynamic_engine.compute">[docs]</a>
 <span class="k">def</span> <span class="nf">compute</span><span class="p">(</span><span class="n">request</span><span class="p">:</span> <span class="n">KPIRequest</span><span class="p">,</span> <span class="n">chart</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KPIResponse</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes the value of a KPI based on the given request, including the validation of machines and operations,</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes the value of a KPI based on the given request, including the validation of machines and operations,</span>
 <span class="sd">    fetching the corresponding formula from the knowledge base, and performing the necessary calculations and</span>
 <span class="sd">    aggregation.</span>
 
@@ -522,7 +541,6 @@
     <span class="n">aggregation</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">time_aggregation</span>
 
     <span class="c1"># inits the kpi calculation by finding the outermost aggregation and involved aggregation variables</span>
-
     <span class="n">partial_result</span> <span class="o">=</span> <span class="n">preprocessing</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">formulas</span><span class="p">)</span>
 
     <span class="k">try</span><span class="p">:</span>
@@ -556,7 +574,8 @@
 <div class="viewcode-block" id="preprocessing">
 <a class="viewcode-back" href="../../../../app.kpi_engine.dynamic.html#app.kpi_engine.dynamic.dynamic_engine.preprocessing">[docs]</a>
 <span class="k">def</span> <span class="nf">preprocessing</span><span class="p">(</span><span class="n">kpi_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">formulas_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Preprocesses the KPI formula to extract aggregation variables and operations.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Preprocesses the KPI formula to extract aggregation variables and operations.</span>
 
 <span class="sd">    :param kpi_name: The name of the KPI.</span>
 <span class="sd">    :type kpi_name: str</span>
@@ -588,11 +607,14 @@
 <span class="k">def</span> <span class="nf">finalize_mo</span><span class="p">(</span>
     <span class="n">final_formula</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">partial_result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span> <span class="n">time_aggregation</span><span class="p">:</span> <span class="nb">str</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Finalizes the KPI calculation by applying the specified aggregation and time-based aggregation to the partial result.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Finalizes the KPI calculation by applying the specified aggregation and time-based aggregation to the partial result.</span>
 
-<span class="sd">    :param final_formula: The final formula representing the KPI, formatted as &#39;°key&#39;, where &#39;key&#39; corresponds to the key in the partial_result dictionary.</span>
+<span class="sd">    :param final_formula: The final formula representing the KPI, formatted as &#39;°key&#39;, where &#39;key&#39; corresponds to the</span>
+<span class="sd">        key in the partial_result dictionary.</span>
 <span class="sd">    :type final_formula: str</span>
-<span class="sd">    :param partial_result: A dictionary containing partial results of KPIs. The key specified in &#39;final_formula&#39; is used to access the corresponding data for aggregation.</span>
+<span class="sd">    :param partial_result: A dictionary containing partial results of KPIs. The key specified in &#39;final_formula&#39; is used</span>
+<span class="sd">        to access the corresponding data for aggregation.</span>
 <span class="sd">    :type partial_result: dict[str, Any]</span>
 <span class="sd">    :param time_aggregation: The time-based aggregation function to apply to the result (e.g., &#39;mean&#39;, &#39;sum&#39;).</span>
 <span class="sd">    :type time_aggregation: str</span>
@@ -613,11 +635,13 @@
 <div class="viewcode-block" id="keys_involved">
 <a class="viewcode-back" href="../../../../app.kpi_engine.dynamic.html#app.kpi_engine.dynamic.dynamic_engine.keys_involved">[docs]</a>
 <span class="k">def</span> <span class="nf">keys_involved</span><span class="p">(</span><span class="n">kpi</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">partial_result</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Extracts the keys involved in a KPI formula from the partial_result dictionary.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Extracts the keys involved in a KPI formula from the partial_result dictionary.</span>
 
-<span class="sd">    :param kpi: The KPI formula represented as a string, which is split by the &#39;°&#39; symbol to extract the variables involved.</span>
+<span class="sd">    :param kpi: The KPI formula represented as a string, which is split by the &#39;°&#39; symbol to extract the involved variables.</span>
 <span class="sd">    :type kpi: str</span>
-<span class="sd">    :param partial_result: A dictionary containing partial results for KPIs. The function checks which keys in the formula are present in this dictionary.</span>
+<span class="sd">    :param partial_result: A dictionary containing partial results for KPIs. The function checks which keys in the</span>
+<span class="sd">        formula are present in this dictionary.</span>
 <span class="sd">    :type partial_result: dict[str, Any]</span>
 <span class="sd">    :return: A list of keys that are present in both the KPI formula and the partial_result dictionary.</span>
 <span class="sd">    :rtype: list[str]</span>
@@ -636,8 +660,8 @@
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Validates and adjusts the relationship between machines and operations.</span>
 
-<span class="sd">    Ensures that the number of machines matches the number of operations. </span>
-<span class="sd">    If a single machine string is provided, it resolves to the closest instances and adjusts the operations list if necessary. </span>
+<span class="sd">    Ensures that the number of machines matches the number of operations.</span>
+<span class="sd">    If a single machine string is provided, it resolves to the closest instances and adjusts the operations list if necessary.</span>
 <span class="sd">    Handles mismatches by attempting reconciliation or returning an error response.</span>
 
 <span class="sd">    :param machines: A string representing a single machine or a list of machine names.</span>
@@ -650,6 +674,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">machines</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
+            <span class="n">machines</span> <span class="o">=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">machines</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
             <span class="n">machine</span> <span class="o">=</span> <span class="n">get_closest_instances</span><span class="p">(</span><span class="n">machines</span><span class="p">)[</span><span class="s2">&quot;instances&quot;</span><span class="p">]</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">KPIResponse</span><span class="p">(</span><span class="n">message</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="n">e</span><span class="p">),</span> <span class="n">value</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
@@ -680,38 +705,6 @@
 
     <span class="k">return</span> <span class="n">machines</span><span class="p">,</span> <span class="n">operations</span></div>
 
-
-
-<span class="c1"># build query statement</span>
-<span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">def build_query(request: KPIRequest, after_last_underscore, before_last_underscore):</span>
-<span class="sd">    if request.machines and request.operations:</span>
-<span class="sd">        conditions = &quot; OR &quot;.join(</span>
-<span class="sd">            f&quot;(name = &#39;{m}&#39; AND operation = &#39;{o}&#39;)&quot;</span>
-<span class="sd">            for m, o in zip(request.machines, request.operations)</span>
-<span class="sd">        )</span>
-<span class="sd">    elif request.machines:</span>
-<span class="sd">        conditions = &quot; OR &quot;.join(f&quot;(name = &#39;{m}&#39;)&quot; for m in request.machines)</span>
-<span class="sd">    elif request.operations:</span>
-<span class="sd">        conditions = &quot; OR &quot;.join(f&quot;(operation = &#39;{o}&#39;)&quot; for o in request.operations)</span>
-<span class="sd">    else:</span>
-<span class="sd">        conditions = &quot;&quot;</span>
-
-<span class="sd">    raw_query_statement = f&quot;&quot;&quot;</span>
-<span class="sd">    SELECT asset_id, operation, time, {after_last_underscore} </span>
-<span class="sd">    FROM real_time_data </span>
-<span class="sd">    WHERE kpi = &#39;{before_last_underscore}&#39;</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-
-<span class="sd">    if conditions:</span>
-<span class="sd">        raw_query_statement += f&quot;AND ({conditions}) &quot;</span>
-
-<span class="sd">    raw_query_statement += (</span>
-<span class="sd">        f&quot;AND time BETWEEN &#39;{request.start_date}&#39; AND &#39;{request.end_date}&#39;&quot;</span>
-<span class="sd">    )</span>
-
-<span class="sd">    return raw_query_statement</span>
-<span class="sd">&#39;&#39;&#39;</span>
 </pre></div>
 
            </div>

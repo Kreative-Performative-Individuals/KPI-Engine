@@ -5,13 +5,13 @@ from fastapi import APIRouter, WebSocket, WebSocketDisconnect
 from threading import Event
 import os
 
-from src.app.kpi_engine.kpi_engine import KPIEngine
-from src.app.kpi_engine.regexp import prepare_for_real_time
-from src.app.models.requests.data_processing import KPIStreamingRequest
-from src.app.models.requests.gui import RealTimeKPIRequest
-from src.app.models.responses.gui import RealTimeResponse
-from src.app.services.data_processing import connect_to_publisher
-from src.app.utils.kafka_admin import delete_kafka_topic
+from app.kpi_engine.kpi_engine import KPIEngine
+from app.kpi_engine.regexp import prepare_for_real_time
+from app.models.requests.data_processing import KPIStreamingRequest
+from app.models.requests.gui import RealTimeKPIRequest
+from app.models.responses.gui import RealTimeResponse
+from app.services.data_processing import connect_to_publisher
+from app.utils.kafka_admin import delete_kafka_topic
 
 router = APIRouter()
 

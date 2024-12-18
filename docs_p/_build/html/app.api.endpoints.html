@@ -91,12 +91,13 @@
 <h1>api.endpoints package<a class="headerlink" href="#api-endpoints-package" title="Link to this heading"></a></h1>
 <section id="module-app.api.endpoints.kpi">
 <span id="api-endpoints-kpi-module"></span><h2>api.endpoints.kpi module<a class="headerlink" href="#module-app.api.endpoints.kpi" title="Link to this heading"></a></h2>
+<p>This module defines the FastAPI endpoint for the KPI computation.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.api.endpoints.kpi.get_kpi">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.api.endpoints.kpi.</span></span><span class="sig-name descname"><span class="pre">get_kpi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><span class="pre">KPIRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="app.models.responses.html#app.models.responses.rag.KPIResponse" title="app.models.responses.rag.KPIResponse"><span class="pre">KPIResponse</span></a></span></span><a class="reference internal" href="_modules/app/api/endpoints/kpi.html#get_kpi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.api.endpoints.kpi.get_kpi" title="Link to this definition"></a></dt>
 <dd><p>Computes a KPI based on the provided request.</p>
 <p>This endpoint performs the computation of a KPI using the provided parameters
-in the <cite>KPIRequest</cite> model. It will call the <cite>compute</cite> function from the dynamic 
+in the <cite>KPIRequest</cite> model. It will call the <cite>compute</cite> function from the dynamic
 engine to process the request and return the result as a <cite>KPIResponse</cite>. If there
 is an error during the computation, an appropriate HTTP exception is raised.</p>
 <dl class="field-list simple">
@@ -122,7 +123,9 @@ is an error during the computation, an appropriate HTTP exception is raised.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.api.endpoints.kpi.get_kpi_chart">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.api.endpoints.kpi.</span></span><span class="sig-name descname"><span class="pre">get_kpi_chart</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><span class="pre">KPIRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="app.models.responses.html#app.models.responses.rag.KPIResponse" title="app.models.responses.rag.KPIResponse"><span class="pre">KPIResponse</span></a></span></span><a class="reference internal" href="_modules/app/api/endpoints/kpi.html#get_kpi_chart"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.api.endpoints.kpi.get_kpi_chart" title="Link to this definition"></a></dt>
-<dd><p>Handles requests to generate a KPI chart.</p>
+<dd><p>This function returns the KPI calculation from a <cite>KPIRequest</cite> object in a format suitable for a chart.
+It is similar to the <code class="xref py py-func docutils literal notranslate"><span class="pre">get_kpi</span></code> function,
+but it returns the data as a time series, between the start and end dates of the request.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>request</strong> (<a class="reference internal" href="app.models.requests.html#app.models.requests.rag.KPIRequest" title="app.models.requests.rag.KPIRequest"><em>KPIRequest</em></a>) – The details of the KPI request including name, machines, operations, and time range.</p>
@@ -142,13 +145,15 @@ is an error during the computation, an appropriate HTTP exception is raised.</p>
 </section>
 <section id="module-app.api.endpoints.real_time">
 <span id="api-endpoints-real-time-module"></span><h2>api.endpoints.real_time module<a class="headerlink" href="#module-app.api.endpoints.real_time" title="Link to this heading"></a></h2>
+<p>Real-time KPI computation endpoint.</p>
 <dl class="py function">
 <dt class="sig sig-object py" id="app.api.endpoints.real_time.handle_real_time_session">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.api.endpoints.real_time.</span></span><span class="sig-name descname"><span class="pre">handle_real_time_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">websocket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">WebSocket</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">request</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="app.models.requests.html#app.models.requests.gui.RealTimeKPIRequest" title="app.models.requests.gui.RealTimeKPIRequest"><span class="pre">RealTimeKPIRequest</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="app.models.responses.html#app.models.responses.gui.RealTimeResponse" title="app.models.responses.gui.RealTimeResponse"><span class="pre">RealTimeResponse</span></a></span></span><a class="reference internal" href="_modules/app/api/endpoints/real_time.html#handle_real_time_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.api.endpoints.real_time.handle_real_time_session" title="Link to this definition"></a></dt>
 <dd><p>Initiates and manages a real-time KPI session.</p>
-<p>This function validates the incoming request, prepares the necessary configurations for 
-KPI computation, and starts the Kafka consumer to process real-time data. It handles 
-errors during setup and ensures a proper session workflow.</p>
+<p>This function validates the incoming request, prepares the necessary configurations for
+KPI computation, and starts the AIOKafkaConsumer to process real-time data. The consumer is started asynchronously
+in a separate task, allowing the WebSocket connection to remain open for real-time communication and the other
+endpoints to be called concurrently. The session can be stopped by sending a “stop” message through the WebSocket.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -169,15 +174,16 @@ errors during setup and ensures a proper session workflow.</p>
 <dt class="sig sig-object py" id="app.api.endpoints.real_time.real_time_session">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.api.endpoints.real_time.</span></span><span class="sig-name descname"><span class="pre">real_time_session</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">websocket</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">WebSocket</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="app.models.responses.html#app.models.responses.gui.RealTimeResponse" title="app.models.responses.gui.RealTimeResponse"><span class="pre">RealTimeResponse</span></a></span></span><a class="reference internal" href="_modules/app/api/endpoints/real_time.html#real_time_session"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.api.endpoints.real_time.real_time_session" title="Link to this definition"></a></dt>
 <dd><p>Manages a real-time KPI WebSocket session.</p>
-<p>This function handles incoming WebSocket connections, allowing the client to start or stop 
-a real-time KPI session. It validates incoming messages and processes requests to either 
-initialize a session or terminate it. Invalid messages are met with an error response.</p>
+<p>This function handles incoming WebSocket connections, allowing the client to start or stop
+a real-time KPI session. It validates incoming messages and processes requests to either
+initialize a session or terminate it. Invalid messages will result in the WebSocket connection
+being closed. The session is managed by the <cite>handle_real_time_session</cite> function.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>websocket</strong> (<em>WebSocket</em>) – The WebSocket connection for client-server communication.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A response indicating the result of the WebSocket operation.</p>
+<dd class="field-even"><p>A response indicating the result of the WebSocket operation (informative).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="app.models.responses.html#app.models.responses.gui.RealTimeResponse" title="app.models.responses.gui.RealTimeResponse">RealTimeResponse</a></p>
@@ -202,8 +208,8 @@ and deletes the Kafka topic associated with the real-time session.</p>
 <dt class="sig sig-object py" id="app.api.endpoints.real_time.stop_consumer">
 <em class="property"><span class="k"><span class="pre">async</span></span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">app.api.endpoints.real_time.</span></span><span class="sig-name descname"><span class="pre">stop_consumer</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="app.models.responses.html#app.models.responses.gui.RealTimeResponse" title="app.models.responses.gui.RealTimeResponse"><span class="pre">RealTimeResponse</span></a></span></span><a class="reference internal" href="_modules/app/api/endpoints/real_time.html#stop_consumer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#app.api.endpoints.real_time.stop_consumer" title="Link to this definition"></a></dt>
 <dd><p>Stops the currently running Kafka consumer.</p>
-<p>This endpoint stops the real-time KPI session by signaling the Kafka consumer to
-terminate, processing any remaining data, and closing all active connections.</p>
+<p>This endpoint stops the real-time KPI session by signaling the Kafka consumer (in the <code class="xref py py-class docutils literal notranslate"><span class="pre">KPIEngine</span></code> to terminate, processing any remaining data, and closing all active
+connections.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A response indicating the success or failure of stopping the consumer.</p>
@@ -213,6 +219,11 @@ terminate, processing any remaining data, and closing all active connections.</p
 </dd>
 </dl>
 </dd></dl>
+
+</section>
+<section id="module-app.api.endpoints">
+</section>
+</section>
 
 
            </div>

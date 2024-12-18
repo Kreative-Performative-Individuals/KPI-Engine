@@ -69,11 +69,10 @@
            <div itemprop="articleBody">
              
   <h1>Source code for app.api.endpoints.kpi</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">HTTPException</span>
+<span></span><span class="sd">&quot;&quot;&quot; This module defines the FastAPI endpoint for the KPI computation. &quot;&quot;&quot;</span>
 
-<span class="c1">#from src.app.kpi_engine.dynamic.dynamic_engine import compute</span>
-<span class="c1">#from src.app.models.requests.rag import KPIRequest</span>
-<span class="c1">#from src.app.models.responses.rag import KPIResponse</span>
+<span class="kn">from</span> <span class="nn">fastapi</span> <span class="kn">import</span> <span class="n">APIRouter</span><span class="p">,</span> <span class="n">HTTPException</span>
+
 <span class="kn">from</span> <span class="nn">app.kpi_engine.dynamic.dynamic_engine</span> <span class="kn">import</span> <span class="n">compute</span>
 <span class="kn">from</span> <span class="nn">app.models.requests.rag</span> <span class="kn">import</span> <span class="n">KPIRequest</span>
 <span class="kn">from</span> <span class="nn">app.models.responses.rag</span> <span class="kn">import</span> <span class="n">KPIResponse</span>
@@ -87,10 +86,11 @@
 <span class="k">async</span> <span class="k">def</span> <span class="nf">get_kpi</span><span class="p">(</span>
     <span class="n">request</span><span class="p">:</span> <span class="n">KPIRequest</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KPIResponse</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes a KPI based on the provided request.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Computes a KPI based on the provided request.</span>
 
 <span class="sd">    This endpoint performs the computation of a KPI using the provided parameters</span>
-<span class="sd">    in the `KPIRequest` model. It will call the `compute` function from the dynamic </span>
+<span class="sd">    in the `KPIRequest` model. It will call the `compute` function from the dynamic</span>
 <span class="sd">    engine to process the request and return the result as a `KPIResponse`. If there</span>
 <span class="sd">    is an error during the computation, an appropriate HTTP exception is raised.</span>
 
@@ -98,7 +98,7 @@
 <span class="sd">    :type request: :class:`KPIRequest`</span>
 <span class="sd">    :return: The computed KPI result, encapsulated in a `KPIResponse`.</span>
 <span class="sd">    :rtype: :class:`KPIResponse`</span>
-<span class="sd">    :raises HTTPException: </span>
+<span class="sd">    :raises HTTPException:</span>
 <span class="sd">        - If the computation fails due to invalid input (ValueError), raises a 404 status with the error message.</span>
 <span class="sd">        - If an unexpected error occurs, raises a 500 status with a generic &quot;Internal Server Error&quot; message.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -118,7 +118,9 @@
     <span class="n">request</span><span class="p">:</span> <span class="n">KPIRequest</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">KPIResponse</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Handles requests to generate a KPI chart.</span>
+<span class="sd">    This function returns the KPI calculation from a `KPIRequest` object in a format suitable for a chart.</span>
+<span class="sd">    It is similar to the :func:`get_kpi &lt;src.app.kpi_engine.dynamic.dynamic_engine.compute&gt;` function,</span>
+<span class="sd">    but it returns the data as a time series, between the start and end dates of the request.</span>
 
 <span class="sd">    :param request: The details of the KPI request including name, machines, operations, and time range.</span>
 <span class="sd">    :type request: KPIRequest</span>

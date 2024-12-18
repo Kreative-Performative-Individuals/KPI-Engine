@@ -10,10 +10,10 @@ import numexpr as ne
 from aiokafka import AIOKafkaConsumer
 from fastapi import WebSocket
 
-from src.app.models.real_time_kpi import RealTimeKPI
-from src.app.models.requests.gui import RealTimeKPIRequest
-from src.app.models.responses.gui import RealTimeKPIResponse
-from src.app.utils.kafka_admin import delete_kafka_topic
+from app.models.real_time_kpi import RealTimeKPI
+from app.models.requests.gui import RealTimeKPIRequest
+from app.models.responses.gui import RealTimeKPIResponse
+from app.utils.kafka_admin import delete_kafka_topic
 
 
 class KPIEngine:

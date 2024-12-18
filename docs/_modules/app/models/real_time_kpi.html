@@ -75,17 +75,19 @@
 <div class="viewcode-block" id="RealTimeKPI">
 <a class="viewcode-back" href="../../../app.models.html#app.models.real_time_kpi.RealTimeKPI">[docs]</a>
 <span class="k">class</span> <span class="nc">RealTimeKPI</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents a real-time KPI, containing the KPI name, the column name, </span>
-<span class="sd">    and a list of associated values.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a real-time KPI, containing the KPI name, the column name,</span>
+<span class="sd">    and a list of associated values. This class serializes the value that are taken in the kafka stream.</span>
 
 <span class="sd">    :param kpi: The name of the KPI.</span>
 <span class="sd">    :type kpi: str</span>
-<span class="sd">    :param column: The name of the column representing the data associated </span>
+<span class="sd">    :param column: The name of the column representing the data associated</span>
 <span class="sd">        with the KPI.</span>
 <span class="sd">    :type column: str</span>
 <span class="sd">    :param values: A list of values associated with the KPI.</span>
 <span class="sd">    :type values: list[float]</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="n">kpi</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">column</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">operation</span><span class="p">:</span> <span class="nb">str</span>
@@ -95,12 +97,13 @@
 <a class="viewcode-back" href="../../../app.models.html#app.models.real_time_kpi.RealTimeKPI.from_json">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">from_json</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates an instance of the RealTimeKPI class from a dictionary.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Creates an instance of the RealTimeKPI class from a dictionary.</span>
 
-<span class="sd">        :param data: A dictionary containing the KPI data with the keys </span>
+<span class="sd">        :param data: A dictionary containing the KPI data with the keys</span>
 <span class="sd">            &#39;kpi&#39;, &#39;column&#39;, and &#39;values&#39;.</span>
 <span class="sd">        :type data: dict</span>
-<span class="sd">        :return: An instance of the RealTimeKPI class initialized with the </span>
+<span class="sd">        :return: An instance of the RealTimeKPI class initialized with the</span>
 <span class="sd">            dictionary data.</span>
 <span class="sd">        :rtype: RealTimeKPI</span>
 <span class="sd">        &quot;&quot;&quot;</span>

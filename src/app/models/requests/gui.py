@@ -1,4 +1,5 @@
 from datetime import datetime
+from pydantic import BaseModel
 
 
 class RealTimeKPIRequest:
@@ -45,3 +46,11 @@ class RealTimeKPIRequest:
         self.operations = operations
         self.time_aggregation = time_aggregation
         self.start_date = start_date
+
+
+class CustomKPICreationRequest(BaseModel):
+    label: str
+    superclass: str
+    description: str
+    unit_of_measure: str
+    human_readable_formula: str
